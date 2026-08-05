@@ -1,0 +1,172 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../generated/prisma"
+  importFileExtension = ""
+  previewFeatures     = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  extensions = [pg_trgm]
+}
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id                 String              @id @default(uuid())
+  email              String              @unique
+  password           String
+  firstName          String
+  lastName           String
+  username           String              @unique
+  avatar             String?
+  verified           Boolean             @default(false)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+  albums             Album[] // One-to-many with Album
+  passwordResets     PasswordReset[]
+  likedSongs         LikedSong[]
+  likedAlbums        LikedAlbum[]
+  verificationTokens VerificationToken[]
+  sessions           UserSession[]
+  playlists          Playlist[]
+  role Role @default(USER)
+}
+
+model UserSession {
+  jti        String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash  String
+  ipAddress  String
+  location   String
+  userAgent  String
+  deviceName String
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime
+  expiresAt  DateTime
+  revokedAt  DateTime?
+
+  @@index([userId])
+  @@index([jti])
+}
+
+model VerificationToken {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  token     String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([token])
+}
+
+model PasswordReset {
+  id        String    @id @default(uuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  token     String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  @@index([token])
+}
+
+model Album {
+  id          String       @id @default(uuid())
+  title       String
+  cover       String
+  songs       Song[] // One-to-many with Song
+  releaseDate DateTime
+  likedBy     LikedAlbum[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([title])
+}
+
+model Song {
+  id            String         @id @default(uuid())
+  title         String
+  album         Album          @relation(fields: [albumId], references: [id], onDelete: Cascade) // Belongs to one Album
+  albumId       String
+  duration      Int
+  genre         Genre          @relation(fields: [genreId], references: [id], onDelete: Restrict)
+  genreId       String
+  likedBy       LikedSong[]
+  playlistSongs PlaylistSong[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([title])
+}
+
+model Playlist {
+  id        String         @id @default(uuid())
+  name      String
+  isPublic  Boolean        @default(false)
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  songs     PlaylistSong[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([name])
+}
+
+model PlaylistSong {
+  id         String   @id @default(uuid())
+  playlistId String
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  songId     String
+  song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  addedAt    DateTime @default(now())
+
+  @@unique([playlistId, songId])
+}
+
+model Genre {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+  songs       Song[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model LikedSong {
+  id      String   @id @default(uuid())
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  song    Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  songId  String
+  likedAt DateTime @default(now())
+
+  @@unique([userId, songId])
+  @@index([userId])
+  @@index([songId])
+}
+
+model LikedAlbum {
+  id      String   @id @default(uuid())
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+  album   Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  albumId String
+  likedAt DateTime @default(now())
+
+  @@unique([userId, albumId])
+  @@index([userId])
+  @@index([albumId])
+}

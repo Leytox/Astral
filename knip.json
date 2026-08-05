@@ -1,0 +1,32 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
+  "tags": ["-lintignore"],
+  "workspaces": {
+    ".": {},
+    "apps/*": {},
+    "packages/*": {},
+    "apps/api": {
+      "entry": ["src/main.{ts,js}"],
+      "project": ["src/**/*.{ts,tsx,js}"],
+      "ignore": ["dist/**", "build/**", "node_modules/**"],
+      "ignoreFiles": ["**/*.d.ts"],
+      "typescript": {
+        "config": ["tsconfig.json"]
+      },
+      "node": true,
+      "dotenv": {
+        "config": [".env"]
+      }
+    }
+  },
+  "rules": {
+    "files": "warn",
+    "dependencies": "warn",
+    "devDependencies": "warn",
+    "types": "warn"
+  }
+}

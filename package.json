@@ -1,24 +1,42 @@
 {
-  "name": "spotify-clone",
+  "dependencies": {
+    "@nestjs/mapped-types": "^2.1.1",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "eslint-plugin-simple-import-sort": "^14.0.0"
+  },
+  "name": "astral",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "check-types": "turbo run check-types",
+    "prepare": "husky",
+    "knip": "knip"
   },
   "devDependencies": {
-    "prettier": "^3.6.2",
-    "turbo": "^2.6.3",
-    "typescript": "5.9.2"
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.1.0",
+    "@commitlint/config-workspace-scopes": "^21.0.2",
+    "@types/node": "^26.1.2",
+    "husky": "^9.1.7",
+    "knip": "^6.29.0",
+    "lint-staged": "^17.2.0",
+    "prettier": "^3.9.6",
+    "turbo": "^2.10.7",
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "bun@1.3.3",
+  "packageManager": "bun@1.4.0",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "lint-staged": {
+    "*.{ts,tsx,md}": "prettier --write"
+  }
 }

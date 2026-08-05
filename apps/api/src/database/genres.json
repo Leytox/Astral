@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Synthwave",
+    "description": "A microgenre of electronic music based predominantly on the music associated with action, science fiction, and horror film soundtracks of the 1980s."
+  },
+  {
+    "name": "Shoegaze",
+    "description": "A subgenre of indie and alternative rock characterized by an ethereal mixture of obscured vocals, guitar distortion and effects, feedback, and overwhelming volume."
+  },
+  {
+    "name": "Afrobeats",
+    "description": "An umbrella term to describe popular music from West Africa and the diaspora that blends West African musical styles with American funk, jazz, and contemporary dance music."
+  },
+  {
+    "name": "Lo-Fi Hip Hop",
+    "description": "A subgenre of hip hop characterized by low-fidelity sound quality, relaxed tempos, and jazz chord progressions, heavily utilized for studying and relaxation."
+  },
+  {
+    "name": "Math Rock",
+    "description": "A style of indie rock characterized by complex, atypical rhythmic structures, counterpoint, odd time signatures, and angular melodies."
+  },
+  {
+    "name": "Post-Punk",
+    "description": "A rock music movement emerging in the late 1970s that departed from traditional punk rock by adopting avant-garde sensibilities and diverse influences like electronic and dub."
+  },
+  {
+    "name": "City Pop",
+    "description": "A loose category of Japanese pop music that peaked in the late 1980s, heavily influenced by Western soft rock, R&B, funk, and boogie."
+  },
+  {
+    "name": "Hyperpop",
+    "description": "A microgenre characterized by an exaggerated, high-energy, and self-referential take on pop music, heavily featuring pitched-up vocals and aggressive electronic production."
+  },
+  {
+    "name": "Bossa Nova",
+    "description": "A style of Brazilian music developed and popularized in the late 1950s and 1960s, combining elements of samba and cool jazz with lyrical, syncopated acoustic guitar acoustic rhythms."
+  },
+  {
+    "name": "Drum and Bass",
+    "description": "A genre of electronic dance music characterized by fast breakbeats (typically 160–180 beats per minute) with heavy bass and sub-bass lines."
+  },
+  {
+    "name": "Trip Hop",
+    "description": "A genre of electronic music that originated in the early 1990s in the UK, blending slow-tempo hip hop beats with electronic, jazz, and psychedelic elements."
+  },
+  {
+    "name": "Gothic Rock",
+    "description": "A subgenre of post-punk and alternative rock that emerged in the late 1970s, featuring dark, melancholic melodies, prominent basslines, and dramatic, baritone vocals."
+  },
+  {
+    "name": "Industrial",
+    "description": "A genre of experimental music that draws on harsh, mechanical, and transgressive soundscapes, often incorporating electronic instrumentation and avant-garde themes."
+  },
+  {
+    "name": "Bluegrass",
+    "description": "A genre of American roots music that developed in the 1940s in the Appalachian region, characterized by acoustic stringed instruments playing fast, improvised, polyphonic melodies."
+  },
+  {
+    "name": "Psychedelic Rock",
+    "description": "A rock music style inspired or influenced by psychedelic culture, utilizing sound effects, distortion, tape loops, and long improvisational solos to replicate mind-altering experiences."
+  },
+  {
+    "name": "IDM (Intelligent Dance Music)",
+    "description": "A subgenre of electronic music originating in the early 1990s, focused on individualistic experimentation and complex rhythmic patterns rather than standard dancefloor structures."
+  },
+  {
+    "name": "Eurodance",
+    "description": "A genre of electronic dance music that originated in the late 1980s in Europe, combining elements of techno, hi-NRG, and house with prominent female vocals and male raps."
+  },
+  {
+    "name": "Dark Wave",
+    "description": "A music movement that emerged from the new wave and post-punk movement of the late 1970s, incorporating dark, introspective lyrics and sorrowful undertones with synthesizers."
+  },
+  {
+    "name": "Ska",
+    "description": "A music genre that originated in Jamaica in the late 1950s, combining Caribbean calypso and mento with American jazz and rhythm and blues, characterized by a walking bassline accented on the offbeat."
+  },
+  {
+    "name": "Ambiance / Ambient",
+    "description": "A genre of music that emphasizes tone and atmosphere over traditional musical structure or rhythm, designed to evoke an atmospheric or visual quality."
+  },
+  {
+    "name": "Doom Metal",
+    "description": "An extreme subgenre of heavy metal music that typically uses slower tempos, low-tuned guitars, and a much thicker or heavier sound to evoke a sense of despair and dread."
+  },
+  {
+    "name": "Glitch Hop",
+    "description": "An electronic music genre that fuses the mid-tempo rhythms of hip hop with the jagged, digitized, and malfunctioning sound aesthetics of glitch music."
+  },
+  {
+    "name": "Reggaeton",
+    "description": "A music genre that originated in Puerto Rico during the late 1990s, heavily influenced by hip hop, dancehall, and Latin American music, propelled by the 'Dem Bow' drum rhythm."
+  },
+  {
+    "name": "Dream Pop",
+    "description": "A subgenre of alternative rock and neo-psychedelia that emphasizes atmosphere and sonic textures as much as melody, featuring breathy vocals and shimmering guitar work."
+  },
+  {
+    "name": "Phonk",
+    "description": "A subgenre of hip hop and trap music directly inspired by 1990s Memphis rap, often characterized by distorted cowbells, chopped vocals, and heavy bass."
+  },
+  {
+    "name": "Gabba / Gabber",
+    "description": "A style of electronic dance music and a subgenre of hardcore techno characterized by very fast, distorted, overdriven bass drum sounds, often reaching 150 to 190 BPM."
+  },
+  {
+    "name": "Garage Rock",
+    "description": "A raw and energetic style of rock and roll that flourished in the mid-1960s, typically recorded by young, amateur bands playing basic chord progressions on fuzzy guitars."
+  },
+  {
+    "name": "Deep House",
+    "description": "A subgenre of house music that originated in the 1980s, blending elements of Chicago house with jazz-funk, soul, and atmospheric, ambient pad sounds."
+  },
+  {
+    "name": "Nu-Metal",
+    "description": "A subgenre of alternative metal that combines heavy metal guitar riffs with elements of other music genres such as hip hop, funk, grunge, and electronic music."
+  },
+  {
+    "name": "Chiptune",
+    "description": "A style of synthesized electronic music made using the sound chips of vintage computers, video game consoles, and arcade machines."
+  },
+  {
+    "name": "Dubstep",
+    "description": "A genre of electronic dance music that originated in South London in the late 1990s, marked by sparse, syncopated rhythmic patterns and prominent sub-bass frequencies."
+  },
+  {
+    "name": "Roots Reggae",
+    "description": "A spiritual and socially conscious subgenre of reggae music that developed in Jamaica, dealing heavily with Rastafarian beliefs, poverty, and resistance to oppression."
+  },
+  {
+    "name": "Art Pop",
+    "description": "A loosely defined pop music style influenced by art-school trends, avant-garde art, literature, and pop culture, prioritizing stylistic experimentation."
+  },
+  {
+    "name": "Hardstyle",
+    "description": "An electronic dance music genre mixing influences from hard techno and hardcore, featuring a deeply distorted hardstyle kick drum, reversed basslines, and synth melodies."
+  },
+  {
+    "name": "Outlaw Country",
+    "description": "A subgenre of country music that emerged in the late 1960s and 1970s as a reaction against the polished, commercial restrictions of the Nashville sound."
+  },
+  {
+    "name": "Flamenco",
+    "description": "A highly expressive Spanish art form that includes cante (singing), toque (guitar playing), baile (dance), jaleo (vocalizations), and palmas (handclapping)."
+  },
+  {
+    "name": "Techno",
+    "description": "A form of electronic dance music that emerged in Detroit during the mid-to-late 1980s, characterized by a repetitive four-on-the-floor beat and futuristic aesthetic."
+  },
+  {
+    "name": "Hardcore Punk",
+    "description": "An extreme, faster, and more aggressive subgenre of punk rock that originated in the late 1970s, featuring short, loud, and intense songs with socio-political lyrics."
+  },
+  {
+    "name": "G-Funk",
+    "description": "A subgenre of gangsta rap that emerged from the West Coast hip hop scene in the early 1990s, characterized by slow, hypnotic funk grooves and high-pitched synthesizer portamentos."
+  },
+  {
+    "name": "Symphonic Metal",
+    "description": "A subgenre of heavy metal that combines the aggressive drums and guitars of metal with the grandiose elements of classical orchestral music, operatic vocals, and choirs."
+  }
+]
