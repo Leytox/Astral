@@ -255,7 +255,7 @@ export class AlbumsService {
       },
     });
 
-    return { message: 'Album liked successfully' };
+    return { message: 'Album unliked successfully' };
   }
 
   /** Delete an album by its ID

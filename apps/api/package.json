@@ -124,10 +124,19 @@
     "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": [
+        "ts-jest",
+        {
+          "tsconfig": "./tsconfig.spec.json"
+        }
+      ]
     },
+    "watchman": false,
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.(t|j)s",
+      "!src/generated/**",
+      "!src/main.ts",
+      "!src/database/seed.ts"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
@@ -135,7 +144,9 @@
       "<rootDir>/src/"
     ],
     "moduleNameMapper": {
-      "^@app/storage(|/.*)$": "<rootDir>/libs/storage/src/$1"
+      "^@app/storage(|/.*)$": "<rootDir>/libs/storage/src/$1",
+      "^@repo/types$": "<rootDir>/../../packages/types/src/index.ts",
+      ".*generated/prisma/client$": "<rootDir>/src/test/mocks/generated-prisma-client.ts"
     }
   }
 }

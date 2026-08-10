@@ -94,7 +94,7 @@ export class GenresService {
     const existingGenre = await this.db.genre.findUnique({
       where: { name },
     });
-    if (existingGenre)
+    if (existingGenre && existingGenre.id !== id)
       throw new ConflictException('Genre with this name is already exists');
     await this.db.genre.update({
       where: { id },
