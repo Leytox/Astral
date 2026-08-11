@@ -82,7 +82,6 @@ bun run --cwd apps/api build        # build API
 bun run --cwd apps/api start:prod   # run built API
 bun run --cwd apps/api lint         # lint and auto-fix
 bun run --cwd apps/api test         # run tests
-bun run --cwd apps/api test:e2e     # run e2e tests
 ```
 
 ## Main modules
