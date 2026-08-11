@@ -14,7 +14,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "prepare": "husky",
-    "knip": "knip"
+    "knip": "knip",
+    "test": "turbo run test"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
