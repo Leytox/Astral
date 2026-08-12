@@ -36,6 +36,7 @@ import {
   ApiQuery,
   ApiRequestedRangeNotSatisfiableResponse,
   ApiTags,
+  ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
@@ -48,10 +49,13 @@ import type { AccessJwtPayload, AudioQuality } from '@repo/types';
 import { User } from '../common/decorators/user.decorator';
 import { tmpdir } from 'os';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { SongDto } from './dto/song.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { SkipThrottle } from '@nestjs/throttler';
+import { PlayUrl } from './dto/play-url.response';
+import { UploadResponse } from './dto/upload-response';
 
 @ApiTags('Songs')
 @ApiExtraModels(UserNotFoundError, AlbumNotFoundError)
@@ -61,11 +65,26 @@ export class SongsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({ summary: 'Get a presigned streaming URL' })
+  @ApiOkResponse({
+    description: 'Presigned streaming URL retrieved successfully',
+    type: PlayUrl,
+  })
   @ApiQuery({
     name: 'quality',
     enum: ['low', 'medium', 'high', 'lossless'],
     required: false,
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'The ID of the song to get the play URL for',
+    required: true,
+    type: String,
+    example: 'b3c96090-0716-462a-a33a-06087f2a9c1b',
   })
   @Get(':id/play-url')
   async getPlayUrl(
@@ -130,6 +149,10 @@ export class SongsController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
   @ApiConsumes('multipart/form-data')
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Upload a song',
     description: 'Upload a song in flac/wav format',
@@ -154,6 +177,7 @@ export class SongsController {
   })
   @ApiCreatedResponse({
     description: 'Song uploaded successfully',
+    type: UploadResponse,
   })
   @ApiUnprocessableEntityResponse({
     description: 'Invalid file type',
@@ -222,6 +246,10 @@ export class SongsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({ summary: 'Edit a song', description: 'Change song details' })
   @ApiOkResponse({
     description: 'Song updated successfully',
@@ -248,6 +276,10 @@ export class SongsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Like a song',
     description:
@@ -271,6 +303,10 @@ export class SongsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Unlike a song',
     description:
@@ -294,6 +330,10 @@ export class SongsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @Get('liked')
   @ApiOperation({ summary: 'Get liked songs' })
   @ApiOkResponse({
@@ -324,6 +364,10 @@ export class SongsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({ summary: 'Delete a song' })
   @ApiOkResponse({
     description: 'Song deleted successfully',

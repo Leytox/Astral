@@ -27,6 +27,7 @@ import {
   ApiOperation,
   ApiParam,
   ApiTags,
+  ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
@@ -43,6 +44,7 @@ import type {
 } from '@repo/types';
 import { Throttle } from '@nestjs/throttler';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 import { SessionDto } from './dto/session.dto';
 import { LocalAuthGuard } from './guards/local.guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
@@ -63,6 +65,24 @@ export class AuthController {
       accessToken:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
     },
+    headers: {
+      'Set-Cookie': {
+        description: 'Refresh token cookie',
+        schema: {
+          type: 'string',
+          example:
+            'refresh_token=some_pretty_long_token; HttpOnly; Secure; SameSite=Strict',
+        },
+      },
+    },
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Invalid credentials',
+    type: ErrorResponseDto,
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'Too many requests, please slow down',
+    type: ErrorResponseDto,
   })
   @ApiBadRequestResponse({
     description: 'Unverified user',
@@ -104,6 +124,10 @@ export class AuthController {
     description: 'Account created successfully',
     type: MessageResponseDto,
   })
+  @ApiTooManyRequestsResponse({
+    description: 'Too many requests, please slow down',
+    type: ErrorResponseDto,
+  })
   @ApiConflictResponse({
     description: 'User already exists',
   })
@@ -137,6 +161,10 @@ export class AuthController {
     description:
       'If an account exists for this email, a password reset link has been sent',
     type: MessageResponseDto,
+  })
+  @ApiTooManyRequestsResponse({
+    description: 'Too many requests, please slow down',
+    type: ErrorResponseDto,
   })
   @ApiBody({
     description: 'User creation payload',
@@ -249,6 +277,10 @@ export class AuthController {
       'If an account exists for this email, a password reset link has been sent',
     type: MessageResponseDto,
   })
+  @ApiTooManyRequestsResponse({
+    description: 'Too many requests, please slow down',
+    type: ErrorResponseDto,
+  })
   @ApiBody({
     type: ForgotPasswordDto,
   })
@@ -273,6 +305,10 @@ export class AuthController {
     description: 'Password reset successfully',
     type: MessageResponseDto,
   })
+  @ApiTooManyRequestsResponse({
+    description: 'Too many requests, please slow down',
+    type: ErrorResponseDto,
+  })
   @ApiBody({
     type: ResetPasswordDto,
   })
@@ -291,6 +327,10 @@ export class AuthController {
   @ApiNotFoundResponse({
     description: 'No active sessions found',
   })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOkResponse({
     description: 'List of active sessions',
     type: SessionDto,
@@ -307,6 +347,10 @@ export class AuthController {
   @ApiOperation({
     summary: 'Logout all active sessions',
     description: 'Logout all active sessions for the current user',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
   })
   @ApiOkResponse({
     description: 'Logged out from all sessions successfully',
@@ -328,6 +372,10 @@ export class AuthController {
     description:
       'Logout from the specified session using the refresh token and session id',
   })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOkResponse({
     description: 'Removed session successfully',
     type: MessageResponseDto,
@@ -337,7 +385,7 @@ export class AuthController {
     description: 'Id of the session to logout from',
   })
   @Delete('/sessions/:sessionId')
-  @UseGuards(JwtAccessGuard)
+  @UseGuards(JwtRefreshGuard)
   async logoutSession(
     @Param('sessionId') sessionId: string,
     @Req() req: Request & { user: RefreshJwtPayload },

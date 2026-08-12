@@ -19,17 +19,20 @@ import {
   ApiParam,
   ApiQuery,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { PlaylistsService } from './playlists.service';
 import { User } from '../common/decorators/user.decorator';
 import type { AccessJwtPayload } from '@repo/types';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { PlaylistDto } from './dto/playlist.dto';
+import { AddSongToPlaylistDto } from './dto/add-song-to-playlist.dto';
 import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { EditPlaylistDto } from './dto/edit-playlist.dto';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 
 @ApiTags('Playlists')
 @Controller('playlists')
@@ -64,6 +67,10 @@ export class PlaylistsController {
     ],
     type: PlaylistDto,
     isArray: true,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
   })
   @ApiNotFoundResponse({
     description: 'Playlists not found',
@@ -143,6 +150,10 @@ export class PlaylistsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Create playlist',
     description: 'Create a new playlist for current user',
@@ -178,8 +189,16 @@ export class PlaylistsController {
     description: 'Track added to playlist successfully',
     type: MessageResponseDto,
   })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiNotFoundResponse({
     description: 'Playlist was not found',
+  })
+  @ApiBody({
+    description: 'The song to add to the playlist',
+    type: AddSongToPlaylistDto,
   })
   @ApiParam({
     name: 'id',
@@ -188,11 +207,11 @@ export class PlaylistsController {
   @Post(':id')
   async addTrackToPlaylist(
     @Param('id') playlistId: string,
-    @Body('songId') songId: string,
+    @Body() body: AddSongToPlaylistDto,
     @User() user: AccessJwtPayload,
   ) {
     return await this.playlistsService.addTrackToPlaylist(
-      songId,
+      body.songId,
       playlistId,
       user.sub,
     );
@@ -207,6 +226,10 @@ export class PlaylistsController {
   @ApiOkResponse({
     description: 'Track removed from playlist successfully',
     type: MessageResponseDto,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
   })
   @ApiNotFoundResponse({
     description: 'Track not found in this playlist',
@@ -242,6 +265,10 @@ export class PlaylistsController {
     description: 'Playlist updated successfully',
     type: MessageResponseDto,
   })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiBadRequestResponse({
     description: 'You already have a playlist with the same name',
   })
@@ -270,6 +297,10 @@ export class PlaylistsController {
   @ApiOkResponse({
     description: 'Playlist deleted successfully',
     type: MessageResponseDto,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
   })
   @ApiNotFoundResponse({
     description: 'Playlist was not found',

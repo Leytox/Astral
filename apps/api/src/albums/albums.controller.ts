@@ -30,12 +30,14 @@ import {
   ApiParam,
   ApiQuery,
   ApiTags,
+  ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { EditAlbumDto } from './dto/edit-album.dto';
 import { AlbumDto } from './dto/album.dto';
 import { Album } from '../generated/prisma/client';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { PaginationDto } from '../common/dto/pagination.dto';
@@ -95,6 +97,10 @@ export class AlbumsController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
   @ApiConsumes('multipart/form-data')
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Update an album cover',
     description: 'Update the cover image of an album',
@@ -159,6 +165,10 @@ export class AlbumsController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
   @ApiConsumes('multipart/form-data')
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Create a new album',
     description: 'Create a new album with a cover image',
@@ -226,7 +236,14 @@ export class AlbumsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
-  @ApiOperation({ summary: 'Get all albums' })
+  @ApiOperation({
+    summary: 'Search albums by title',
+    description: 'Search albums by title with pagination',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOkResponse({
     description: 'List of albums',
     type: AlbumDto,
@@ -320,6 +337,10 @@ export class AlbumsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({ summary: 'Edit an album' })
   @ApiOkResponse({
     description: 'Album updated successfully',
@@ -348,6 +369,10 @@ export class AlbumsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({ summary: 'Like an album' })
   @ApiOkResponse({
     description: 'Album liked successfully',
@@ -367,6 +392,10 @@ export class AlbumsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({ summary: 'Delete an album' })
   @ApiOkResponse({
     description: 'Album deleted successfully',

@@ -35,7 +35,10 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Astral API')
     .setDescription(
-      'The Astral is a free and open source project created to master fullstack skills',
+      'The Astral is a free and open source project created to master fullstack skills\n\n' +
+        '**Errors** — every error response follows the `{ statusCode, message, errorCode }` shape (see the `ErrorResponseDto` schema).\n\n' +
+        '**Rate limits** — all endpoints are throttled to 20 requests/minute; auth endpoints have stricter limits. Exceeding a limit returns `429 Too Many Requests`.\n\n' +
+        '**Realtime events** — the API also exposes a Socket.IO endpoint on the same server. Authenticate with your JWT access token via the `auth.token` handshake field or the `Authorization: Bearer` header, then listen on your user room for events such as `upload:success` and `upload:error`.',
     )
     .setVersion('1.0')
     .setContact('Ilya Devder', 'https://t.me/Leytox', 'iladevder@gmail.com')

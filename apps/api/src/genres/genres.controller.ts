@@ -13,17 +13,20 @@ import {
   ApiBearerAuth,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiForbiddenResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { EditGenreDto } from './dto/edit-genre.dto';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 import { GenreDto } from './dto/genre.dto';
 import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
@@ -127,6 +130,14 @@ export class GenresController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard, RolesGuard)
   @Roles('ADMIN')
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiForbiddenResponse({
+    description: 'Only ADMIN users can perform this action',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Create a new genre',
     description: 'Create a new genre with the provided name',
@@ -146,6 +157,14 @@ export class GenresController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard, RolesGuard)
   @Roles('ADMIN')
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiForbiddenResponse({
+    description: 'Only ADMIN users can perform this action',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Edit a genre',
   })

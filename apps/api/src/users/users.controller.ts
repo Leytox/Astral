@@ -24,10 +24,12 @@ import {
   ApiOperation,
   ApiParam,
   ApiTags,
+  ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { EditUserDto } from './dto/edit-user.dto';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { GetProfileDto } from './dto/get-profile.dto';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
@@ -40,6 +42,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Get profile info',
     description: 'Get current user profile information',
@@ -66,6 +72,10 @@ export class UsersController {
     return await this.usersService.getProfile(user.sub);
   }
 
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Get user info',
     description: 'Get user profile information by id',
@@ -95,6 +105,10 @@ export class UsersController {
   }
 
   @ApiConsumes('multipart/form-data')
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Upload a new user avatar',
     description: 'Upload a new avatar for the current user',
@@ -148,6 +162,10 @@ export class UsersController {
     return this.usersService.uploadProfilePicture(user.sub, file);
   }
 
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Edit profile info',
     description: 'Edit current user profile information',
@@ -164,6 +182,10 @@ export class UsersController {
     return await this.usersService.editProfile(user.sub, data);
   }
 
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiOperation({
     summary: 'Delete account',
     description: 'Deletes current user account',

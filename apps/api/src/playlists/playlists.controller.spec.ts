@@ -93,7 +93,7 @@ describe('PlaylistsController', () => {
 
     const result = await controller.addTrackToPlaylist(
       'playlist-1',
-      'song-1',
+      { songId: 'song-1' },
       user as any,
     );
 

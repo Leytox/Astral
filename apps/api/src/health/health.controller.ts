@@ -9,7 +9,12 @@ import {
 import { PrismaService } from '../database/prisma.service';
 import { RedisHealthIndicator } from './redis.health';
 import { S3HealthIndicator } from './s3.health';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiOkResponse,
+  ApiInternalServerErrorResponse,
+} from '@nestjs/swagger';
 
 @ApiTags('Health')
 @Controller('health')
@@ -27,6 +32,8 @@ export class HealthController {
   @Get()
   @HealthCheck()
   @ApiOperation({ summary: 'Application health check' })
+  @ApiOkResponse({ description: 'Application is healthy' })
+  @ApiInternalServerErrorResponse({ description: 'Application is unhealthy' })
   check() {
     return this.health.check([
       () => this.prisma.pingCheck('database', this.prismaService),
