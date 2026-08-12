@@ -105,8 +105,6 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
       - ./grafana:/etc/grafana/provisioning/datasources
-      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
-      - ./grafana/dashboards-json:/var/lib/grafana/dashboards
 
   loki:
     image: grafana/loki:latest
