@@ -9,6 +9,7 @@ import { AlbumsService } from './albums.service';
 import { PrismaService } from '../database/prisma.service';
 import { UploadService } from '../upload/upload.service';
 import { SongsService } from '../songs/songs.service';
+import { PresignService } from '../upload/presign.service';
 
 jest.mock('file-type', () => ({
   fileTypeFromBuffer: jest.fn(),
@@ -39,6 +40,10 @@ describe('AlbumsService', () => {
     $queryRaw: jest.fn(),
   };
   const mockUploadService = { uploadFile: jest.fn() };
+  const mockPresignService = {
+    getSongPlayUrl: jest.fn(),
+    getImageUrl: jest.fn(),
+  };
   const mockSongsService = { delete: jest.fn() };
   const mockS3 = { deleteObject: jest.fn() };
   const mockCacheManager = { get: jest.fn(), set: jest.fn(), del: jest.fn() };
@@ -60,6 +65,7 @@ describe('AlbumsService', () => {
         AlbumsService,
         { provide: PrismaService, useValue: mockDb },
         { provide: UploadService, useValue: mockUploadService },
+        { provide: PresignService, useValue: mockPresignService },
         { provide: SongsService, useValue: mockSongsService },
         { provide: 'default_S3ModuleConnectionToken', useValue: mockS3 },
         { provide: CACHE_MANAGER, useValue: mockCacheManager },

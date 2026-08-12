@@ -1,8 +1,5 @@
 import { UnauthorizedException } from '@nestjs/common';
-import bcrypt from 'bcrypt';
-import geoip from 'geoip-lite';
 import { LocalStrategy } from './local.strategy';
-import { AuthService } from '../auth.service';
 
 // AuthService module is loaded transitively; keep its external deps mocked.
 jest.mock('bcrypt', () => ({

@@ -30,7 +30,7 @@ type AuthSocket = Socket<
 @Injectable()
 export class EventsGateway implements OnGatewayConnection {
   @WebSocketServer()
-  server: Server;
+  server!: Server;
 
   constructor(
     private readonly jwtService: JwtService,

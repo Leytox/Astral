@@ -13,6 +13,7 @@ import { fileTypeFromBuffer } from 'file-type';
 import { UploadService } from '../upload/upload.service';
 import { InjectS3, type S3 } from 'nestjs-s3';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { PresignService } from '../upload/presign.service';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,7 @@ export class UsersService {
     private readonly db: PrismaService,
     private readonly emailService: EmailService,
     private readonly uploadService: UploadService,
+    private readonly presignService: PresignService,
     @InjectS3() private readonly s3: S3,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
@@ -48,6 +50,13 @@ export class UsersService {
         deletedAt: true,
       },
     });
+
+    if (profile?.avatar)
+      profile.avatar = await this.presignService.getImageUrl(
+        'avatars',
+        profile.avatar,
+      );
+
     await this.cacheManager.set(cacheKey, profile, 45_000);
     return profile;
   }
@@ -82,6 +91,11 @@ export class UsersService {
       },
     });
     if (!user) throw new NotFoundException('User not found');
+    if (user?.avatar)
+      user.avatar = await this.presignService.getImageUrl(
+        'avatars',
+        user.avatar,
+      );
 
     await this.cacheManager.set(cacheKey, user, 45_000);
     return user;

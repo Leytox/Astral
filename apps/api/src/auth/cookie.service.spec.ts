@@ -6,9 +6,11 @@ import type { Request, Response } from 'express';
 describe('CookieService', () => {
   let service: CookieService;
   const mockConfigService = { get: jest.fn() };
+  const mockCookie = jest.fn();
+  const mockClearCookie = jest.fn();
   const mockResponse = {
-    cookie: jest.fn(),
-    clearCookie: jest.fn(),
+    cookie: mockCookie,
+    clearCookie: mockClearCookie,
   } as unknown as Response;
 
   beforeEach(async () => {
@@ -50,7 +52,7 @@ describe('CookieService', () => {
     it('sets an httpOnly, sameSite=strict cookie with the configured maxAge', () => {
       service.appendRefreshTokenCookie(mockResponse, 'refresh-token');
 
-      expect(mockResponse.cookie).toHaveBeenCalledWith(
+      expect(mockCookie).toHaveBeenCalledWith(
         'refresh_token',
         'refresh-token',
         expect.objectContaining({
@@ -68,7 +70,7 @@ describe('CookieService', () => {
       try {
         service.appendRefreshTokenCookie(mockResponse, 'refresh-token');
 
-        expect(mockResponse.cookie).toHaveBeenCalledWith(
+        expect(mockCookie).toHaveBeenCalledWith(
           'refresh_token',
           'refresh-token',
           expect.objectContaining({ secure: true }),
@@ -83,7 +85,7 @@ describe('CookieService', () => {
     it('clears the refresh_token cookie with the same attributes', () => {
       service.deleteRefreshTokenCookie(mockResponse);
 
-      expect(mockResponse.clearCookie).toHaveBeenCalledWith(
+      expect(mockClearCookie).toHaveBeenCalledWith(
         'refresh_token',
         expect.objectContaining({
           httpOnly: true,

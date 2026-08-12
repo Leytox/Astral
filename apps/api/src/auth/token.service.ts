@@ -20,7 +20,7 @@ export class TokenService {
       {
         sub: user.id,
         username: user.username,
-        role: user.role as 'USER' | 'ADMIN',
+        role: user.role,
       },
       {
         secret: this.configService.get<string>('JWT_ACCESS_SECRET'),

@@ -15,6 +15,7 @@ import { Album } from '../generated/prisma/client';
 import { fileTypeFromBuffer } from 'file-type';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { PresignService } from '../upload/presign.service';
 
 @Injectable()
 export class AlbumsService {
@@ -22,6 +23,7 @@ export class AlbumsService {
     private readonly db: PrismaService,
     private readonly uploadService: UploadService,
     private readonly songsService: SongsService,
+    private readonly presignService: PresignService,
     @InjectS3() private readonly s3: S3,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
@@ -40,7 +42,7 @@ export class AlbumsService {
 
     const [albums, countResult] = await Promise.all([
       this.db.$queryRaw<Album[]>`
-         SELECT *
+         SELECT id, title, releaseDate, createdAt, updatedAt, userId
          FROM "Album"
          WHERE title % ${title}::text
          ORDER BY similarity(title, ${title}::text) DESC
@@ -73,6 +75,11 @@ export class AlbumsService {
       },
     });
     if (!album) throw new NotFoundException('Album not found');
+    if (album.cover)
+      album.cover = await this.presignService.getImageUrl(
+        'covers',
+        album.cover,
+      );
 
     await this.cacheManager.set(cacheKey, album, 60_000);
     return album;

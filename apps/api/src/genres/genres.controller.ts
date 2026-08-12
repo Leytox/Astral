@@ -27,8 +27,8 @@ import { MessageResponseDto } from '../common/dto/message-response.dto';
 import { GenreDto } from './dto/genre.dto';
 import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { RolesGuard } from '../common/guards/roles.guard';
 
 @ApiTags('Genres')
 @Controller('genres')

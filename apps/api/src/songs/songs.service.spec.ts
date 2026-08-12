@@ -15,6 +15,7 @@ import { fileTypeFromFile } from 'file-type';
 import { SongsService } from './songs.service';
 import { PrismaService } from '../database/prisma.service';
 import { UploadService } from '../upload/upload.service';
+import { PresignService } from '../upload/presign.service';
 import { AUDIO_QUALITIES } from '../common/consts';
 
 jest.mock('file-type', () => ({
@@ -52,6 +53,10 @@ describe('SongsService', () => {
     },
   };
   const mockUploadService = { uploadFile: jest.fn() };
+  const mockPresignService = {
+    getSongPlayUrl: jest.fn(),
+    getImageUrl: jest.fn(),
+  };
   const mockAudioQueue = { add: jest.fn() };
   const mockS3 = {
     getObject: jest.fn(),
@@ -80,6 +85,7 @@ describe('SongsService', () => {
         SongsService,
         { provide: PrismaService, useValue: mockDb },
         { provide: UploadService, useValue: mockUploadService },
+        { provide: PresignService, useValue: mockPresignService },
         { provide: getQueueToken('audio'), useValue: mockAudioQueue },
         { provide: 'default_S3ModuleConnectionToken', useValue: mockS3 },
         { provide: CACHE_MANAGER, useValue: mockCacheManager },
@@ -524,6 +530,52 @@ describe('SongsService', () => {
         'albums:detail:album-1',
       );
       expect(result).toEqual({ message: 'Song deleted successfully' });
+    });
+  });
+
+  describe('getPlayUrl', () => {
+    it('validates the song and returns the signed URL with a 300s expiry', async () => {
+      mockDb.song.findUnique.mockResolvedValue(song);
+      mockPresignService.getSongPlayUrl.mockResolvedValue(
+        'https://minio/signed-url',
+      );
+
+      const result = await service.getPlayUrl('song-1', 'high');
+
+      expect(mockDb.song.findUnique).toHaveBeenCalledWith({
+        where: { id: 'song-1', album: { user: { deletedAt: null } } },
+      });
+      expect(mockPresignService.getSongPlayUrl).toHaveBeenCalledWith(
+        'song-1',
+        'high',
+      );
+      expect(result).toEqual({
+        url: 'https://minio/signed-url',
+        expiresIn: 300,
+      });
+    });
+
+    it('passes the quality through to the presign service', async () => {
+      mockDb.song.findUnique.mockResolvedValue(song);
+      mockPresignService.getSongPlayUrl.mockResolvedValue(
+        'https://minio/signed-lossless',
+      );
+
+      await service.getPlayUrl('song-1', 'lossless');
+
+      expect(mockPresignService.getSongPlayUrl).toHaveBeenCalledWith(
+        'song-1',
+        'lossless',
+      );
+    });
+
+    it('throws a NotFoundException when the song does not exist', async () => {
+      mockDb.song.findUnique.mockResolvedValue(null);
+
+      await expect(service.getPlayUrl('song-1', 'high')).rejects.toThrow(
+        NotFoundException,
+      );
+      expect(mockPresignService.getSongPlayUrl).not.toHaveBeenCalled();
     });
   });
 });

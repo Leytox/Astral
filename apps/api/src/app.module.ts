@@ -55,7 +55,7 @@ import crypto from 'node:crypto';
           genReqId: (req) => req.headers['x-request-id'] ?? crypto.randomUUID(),
           redact: ['req.headers.authorization', 'req.headers.cookie'],
           customProps: (req) => ({
-            userId: req?.user?.sub,
+            userId: (req as { user?: { sub?: string } }).user?.sub,
           }),
           transport: {
             target: 'pino-loki',

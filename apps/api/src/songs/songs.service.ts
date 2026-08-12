@@ -28,15 +28,34 @@ import { Song } from '../generated/prisma/client';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { AUDIO_QUALITIES } from '../common/consts';
+import { PresignService } from '../upload/presign.service';
 @Injectable()
 export class SongsService {
   constructor(
     private readonly db: PrismaService,
     private readonly uploadService: UploadService,
+    private readonly presignService: PresignService,
     @InjectQueue('audio') private readonly audioQueue: Queue,
     @InjectS3() private readonly s3: S3,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
+
+  private async validatePlayable(id: string): Promise<Song> {
+    const song = await this.db.song.findUnique({
+      where: { id, album: { user: { deletedAt: null } } },
+    });
+    if (!song) throw new NotFoundException('Song was not found');
+    return song;
+  }
+
+  async getPlayUrl(
+    id: string,
+    quality: AudioQuality,
+  ): Promise<{ url: string; expiresIn: number }> {
+    const song = await this.validatePlayable(id);
+    const url = await this.presignService.getSongPlayUrl(song.id, quality);
+    return { url, expiresIn: 300 };
+  }
 
   /**
    * Play a song from the S3 bucket
@@ -52,10 +71,7 @@ export class SongsService {
     res: Response,
     quality: AudioQuality,
   ): Promise<StreamableFile> {
-    const song = await this.db.song.findUnique({
-      where: { id, album: { user: { deletedAt: null } } },
-    });
-    if (!song) throw new NotFoundException('Song was not found');
+    const song = await this.validatePlayable(id);
     if (!range) {
       // Return the entire file stream
       const { Body, ContentType, ContentLength } = await this.s3.getObject({

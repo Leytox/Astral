@@ -9,6 +9,7 @@ import { UsersService } from './users.service';
 import { PrismaService } from '../database/prisma.service';
 import { EmailService } from '../email/email.service';
 import { UploadService } from '../upload/upload.service';
+import { PresignService } from '../upload/presign.service';
 
 // file-type is ESM-only; both users.service and this spec load it.
 jest.mock('file-type', () => ({
@@ -36,6 +37,10 @@ describe('UsersService', () => {
   };
   const mockUploadService = {
     uploadFile: jest.fn(),
+  };
+  const mockPresignService = {
+    getSongPlayUrl: jest.fn(),
+    getImageUrl: jest.fn(),
   };
   const mockS3 = {
     getObject: jest.fn(),
@@ -68,6 +73,7 @@ describe('UsersService', () => {
         { provide: PrismaService, useValue: mockDb },
         { provide: EmailService, useValue: mockEmailService },
         { provide: UploadService, useValue: mockUploadService },
+        { provide: PresignService, useValue: mockPresignService },
         { provide: 'default_S3ModuleConnectionToken', useValue: mockS3 },
         { provide: CACHE_MANAGER, useValue: mockCache },
       ],

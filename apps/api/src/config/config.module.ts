@@ -29,7 +29,7 @@ import * as Joi from 'joi';
         SMTP_PASS: Joi.string().min(8).required(),
         SMTP_SECURE: Joi.boolean().required(),
         APP_BASE_URL: Joi.string().uri().required(),
-        LOKI_HOST: Joi.string().hostname().required(),
+        LOKI_HOST: Joi.string().uri().required(),
       }),
       validationOptions: {
         allowUnknown: true,

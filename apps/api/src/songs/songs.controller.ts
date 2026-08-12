@@ -59,11 +59,28 @@ import { SkipThrottle } from '@nestjs/throttler';
 export class SongsController {
   constructor(private readonly songsService: SongsService) {}
 
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAccessGuard)
+  @ApiOperation({ summary: 'Get a presigned streaming URL' })
+  @ApiQuery({
+    name: 'quality',
+    enum: ['low', 'medium', 'high', 'lossless'],
+    required: false,
+  })
+  @Get(':id/play-url')
+  async getPlayUrl(
+    @Param('id') id: string,
+    @Query('quality') quality: AudioQuality,
+  ) {
+    return await this.songsService.getPlayUrl(id, quality);
+  }
+
   @SkipThrottle()
   @Get(':id/play')
   @ApiOperation({
     summary: 'Get a song',
     description: 'Get chunks of a song',
+    deprecated: true,
   })
   @ApiProduces('audio/mp4', 'audio/flac')
   @ApiParam({

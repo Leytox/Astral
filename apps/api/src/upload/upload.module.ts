@@ -5,6 +5,7 @@ import { S3Module } from 'nestjs-s3';
 import { UploadService } from './upload.service';
 import { UploadProcessor } from './upload.processor';
 import { EventsModule } from '../events/events.module';
+import { PresignService } from './presign.service';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { EventsModule } from '../events/events.module';
     BullModule.registerQueue({ name: 'upload' }),
     EventsModule,
   ],
-  providers: [UploadService, UploadProcessor],
-  exports: [UploadService, BullModule],
+  providers: [UploadService, PresignService, UploadProcessor],
+  exports: [UploadService, PresignService, BullModule],
 })
 export class UploadModule {}

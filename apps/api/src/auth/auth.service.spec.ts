@@ -1,6 +1,5 @@
 import { Test } from '@nestjs/testing';
 import {
-  BadRequestException,
   ConflictException,
   NotFoundException,
   UnauthorizedException,
@@ -13,7 +12,6 @@ import { PrismaService } from '../database/prisma.service';
 import { TokenService } from './token.service';
 import { CookieService } from './cookie.service';
 import { EmailService } from '../email/email.service';
-import { RegisterDto } from './dto/register.dto';
 import type { Request, Response } from 'express';
 
 jest.mock('bcrypt', () => ({
@@ -81,9 +79,12 @@ describe('AuthService', () => {
     password: 'hashed-password',
     firstName: 'John',
     lastName: 'Doe',
-    role: 'USER',
+    role: 'USER' as const,
     verified: true,
+    avatar: null,
     deletedAt: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   beforeEach(async () => {

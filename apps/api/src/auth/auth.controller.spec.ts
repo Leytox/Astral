@@ -1,6 +1,4 @@
 import { Test } from '@nestjs/testing';
-import bcrypt from 'bcrypt';
-import geoip from 'geoip-lite';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 

@@ -1,6 +1,4 @@
 import { ExecutionContext } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import type { Role } from '../../generated/prisma/client';
 import { RolesGuard } from './roles.guard';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 

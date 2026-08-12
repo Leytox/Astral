@@ -12,14 +12,23 @@ const mockConfig = {
 describe('JWT strategies', () => {
   it('AccessTokenStrategy returns the payload from validate', () => {
     const strategy = new AccessTokenStrategy(mockConfig);
-    const payload = { sub: 'user-1', username: 'johndoe', role: 'USER' };
+    const payload = {
+      sub: 'user-1',
+      username: 'johndoe',
+      role: 'USER' as const,
+    };
 
     expect(strategy.validate(payload)).toEqual(payload);
   });
 
   it('RefreshTokenStrategy returns the payload from validate', () => {
     const strategy = new RefreshTokenStrategy(mockConfig);
-    const payload = { sub: 'user-1', username: 'johndoe', jti: 'jti-1' };
+    const payload = {
+      sub: 'user-1',
+      username: 'johndoe',
+      role: 'USER' as const,
+      jti: 'jti-1',
+    };
 
     expect(strategy.validate(payload)).toEqual(payload);
   });
@@ -37,7 +46,11 @@ describe('JWT strategies', () => {
 
   it('OptionalTokenStrategy returns the payload from validate', () => {
     const strategy = new OptionalTokenStrategy(mockConfig);
-    const payload = { sub: 'user-1', username: 'johndoe', role: 'USER' };
+    const payload = {
+      sub: 'user-1',
+      username: 'johndoe',
+      role: 'USER' as const,
+    };
 
     expect(strategy.validate(payload)).toEqual(payload);
   });

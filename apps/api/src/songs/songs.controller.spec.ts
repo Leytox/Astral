@@ -13,6 +13,7 @@ describe('SongsController', () => {
 
   const mockSongsService = {
     play: jest.fn(),
+    getPlayUrl: jest.fn(),
     upload: jest.fn(),
     edit: jest.fn(),
     like: jest.fn(),
@@ -46,6 +47,17 @@ describe('SongsController', () => {
       res,
       'low',
     );
+  });
+
+  it('delegates getPlayUrl', async () => {
+    mockSongsService.getPlayUrl.mockResolvedValue({
+      url: 'https://minio/signed-url',
+      expiresIn: 300,
+    });
+
+    await controller.getPlayUrl('song-1', 'high');
+
+    expect(mockSongsService.getPlayUrl).toHaveBeenCalledWith('song-1', 'high');
   });
 
   it('delegates upload', async () => {
