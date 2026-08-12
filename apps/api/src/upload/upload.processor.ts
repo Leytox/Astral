@@ -17,18 +17,16 @@ export class UploadProcessor extends WorkerHost {
     super();
   }
   private readonly logger = new Logger(UploadProcessor.name);
+
   async process(
     job: Job<PutObjectRequest & { tempPath: string; userId: string | null }>,
   ): Promise<void> {
     const { Bucket, Key, ContentType, tempPath, userId } = job.data;
+    let uploaded = false;
     try {
       const fileStream = createReadStream(tempPath);
-      await this.s3.putObject({
-        Bucket,
-        Key,
-        Body: fileStream,
-        ContentType,
-      });
+      await this.s3.putObject({ Bucket, Key, Body: fileStream, ContentType });
+      uploaded = true;
       if (userId)
         this.eventsGateway.emitToUser(userId, 'upload:success', {
           Key,
@@ -43,7 +41,9 @@ export class UploadProcessor extends WorkerHost {
         });
       throw error;
     } finally {
-      await unlink(tempPath).catch(() => {});
+      if (uploaded) {
+        await unlink(tempPath).catch(() => {});
+      }
     }
   }
 }

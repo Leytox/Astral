@@ -101,7 +101,9 @@ describe('UploadProcessor', () => {
       'upload:error',
       { Key: 'song-1.m4a', message: 'Upload has failed' },
     );
-    expect(mockUnlink).toHaveBeenCalledWith('/tmp/song-1.m4a');
+    // The temp file must survive a failed attempt so BullMQ retries can
+    // still stream it.
+    expect(mockUnlink).not.toHaveBeenCalled();
     loggerSpy.mockRestore();
   });
 
@@ -118,7 +120,9 @@ describe('UploadProcessor', () => {
     );
 
     expect(mockEventsGateway.emitToUser).not.toHaveBeenCalled();
-    expect(mockUnlink).toHaveBeenCalledWith('/tmp/song-1.m4a');
+    // The temp file must survive a failed attempt so BullMQ retries can
+    // still stream it.
+    expect(mockUnlink).not.toHaveBeenCalled();
     loggerSpy.mockRestore();
   });
 });
