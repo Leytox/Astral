@@ -2,11 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { SearchResponseDto } from './dto/search.dto';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { PresignService } from '../upload/presign.service';
 
 @Injectable()
 export class SearchService {
   constructor(
     private readonly db: PrismaService,
+    private readonly presignService: PresignService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -35,7 +37,7 @@ export class SearchService {
         FROM "Genre"
         WHERE similarity(name, ${title}::text) > 0.2
         UNION ALL
-        SELECT 'user' AS type, id, username AS name, NULL AS "imageUrl"
+        SELECT 'user' AS type, id, username AS name, avatar AS "imageUrl"
         FROM "User"
         WHERE similarity(username, ${title}::text) > 0.2
         UNION ALL
@@ -46,6 +48,22 @@ export class SearchService {
       ORDER BY similarity(name, ${title}::text) DESC
       LIMIT 5
     `;
+    for (const result of searchResults) {
+      if (
+        (result.type === 'album' || result.type === 'song') &&
+        result.imageUrl
+      ) {
+        result.imageUrl = await this.presignService.getImageUrl(
+          'covers',
+          result.imageUrl,
+        );
+      } else if (result.type === 'user' && result.imageUrl) {
+        result.imageUrl = await this.presignService.getImageUrl(
+          'avatars',
+          result.imageUrl,
+        );
+      }
+    }
     await this.cacheManager.set(cacheKey, searchResults, 30_000);
     return searchResults;
   }

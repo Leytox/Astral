@@ -369,11 +369,54 @@ export class AlbumsController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAccessGuard)
+  @ApiOperation({
+    summary: 'Get all liked albums',
+    description:
+      'Returns a list of all albums liked by the authenticated user.',
+  })
   @ApiUnauthorizedResponse({
     description: 'Missing or invalid access token',
     type: ErrorResponseDto,
   })
-  @ApiOperation({ summary: 'Like an album' })
+  @ApiOkResponse({
+    description: 'List of liked albums',
+    example: {
+      count: 10,
+      songs: [AlbumDto],
+    },
+    isArray: true,
+  })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    type: Number,
+    example: 0,
+    description: 'Number of records to skip',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+    description: 'Maximum number of records to return',
+  })
+  async getLikedAlbums(
+    @User() user: AccessJwtPayload,
+    @Query() query: PaginationDto,
+  ) {
+    return await this.albumsService.getLikedAlbums(user.sub, query);
+  }
+
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiOperation({
+    summary: 'Like an album',
+    description: 'Likes an album for the authenticated user.',
+  })
   @ApiOkResponse({
     description: 'Album liked successfully',
     type: MessageResponseDto,
@@ -388,6 +431,32 @@ export class AlbumsController {
   @Post(':id/like')
   async likeAlbum(@Param('id') id: string, @User() user: AccessJwtPayload) {
     return await this.albumsService.likeAlbum(id, user.sub);
+  }
+
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAccessGuard)
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiOperation({
+    summary: 'Unlike an album',
+    description: 'Unlikes an album for the authenticated user.',
+  })
+  @ApiOkResponse({
+    description: 'Album unliked successfully',
+    type: MessageResponseDto,
+  })
+  @ApiNotFoundResponse({
+    description: 'Album not found',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Album ID',
+  })
+  @Delete(':id/like')
+  async unlikeAlbum(@Param('id') id: string, @User() user: AccessJwtPayload) {
+    return await this.albumsService.unlikeAlbum(id, user.sub);
   }
 
   @ApiBearerAuth('access-token')

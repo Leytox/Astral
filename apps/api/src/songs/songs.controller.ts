@@ -69,7 +69,10 @@ export class SongsController {
     description: 'Missing or invalid access token',
     type: ErrorResponseDto,
   })
-  @ApiOperation({ summary: 'Get a presigned streaming URL' })
+  @ApiOperation({
+    summary: 'Get a presigned streaming URL',
+    description: 'Get a presigned streaming URL for a song with expiring time',
+  })
   @ApiOkResponse({
     description: 'Presigned streaming URL retrieved successfully',
     type: PlayUrl,
@@ -335,10 +338,17 @@ export class SongsController {
     type: ErrorResponseDto,
   })
   @Get('liked')
-  @ApiOperation({ summary: 'Get liked songs' })
+  @ApiOperation({
+    summary: 'Get liked songs',
+    description: 'Retrieves a list of liked songs for the current user.',
+  })
   @ApiOkResponse({
     description: 'Liked songs retrieved successfully',
-    type: SongDto,
+    type: 'object',
+    example: {
+      count: 10,
+      songs: [SongDto],
+    },
     isArray: true,
   })
   @ApiQuery({
