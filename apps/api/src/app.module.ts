@@ -25,6 +25,7 @@ import { GlobalHttpExceptionFilter } from './common/filters/http-exception.filte
 import { LoggerModule } from 'nestjs-pino';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import crypto from 'node:crypto';
+import { CustomPrometheusController } from './common/prometheus.controller';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import crypto from 'node:crypto';
       defaultMetrics: {
         enabled: true,
       },
+      controller: CustomPrometheusController,
     }),
     LoggerModule.forRootAsync({
       inject: [ConfigService],
