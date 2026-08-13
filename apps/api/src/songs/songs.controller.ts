@@ -42,23 +42,20 @@ import {
 import { diskStorage } from 'multer';
 import { UploadSongDto } from './dto/upload.dto';
 import { EditSongDto } from './dto/edit.dto';
-import { UserNotFoundError } from './dto/user-not-found.response';
-import { AlbumNotFoundError } from './dto/album-not-found.response';
 import type { Response } from 'express';
-import type { AccessJwtPayload, AudioQuality } from '@repo/types';
+import { type AccessJwtPayload, type AudioQuality } from '@repo/types';
 import { User } from '../common/decorators/user.decorator';
 import { tmpdir } from 'os';
 import { MessageResponseDto } from '../common/dto/message-response.dto';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
-import { SongDto } from './dto/song.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { SkipThrottle } from '@nestjs/throttler';
-import { PlayUrl } from './dto/play-url.response';
-import { UploadResponse } from './dto/upload-response';
+import { PlayUrlDto } from './dto/play-url.response';
+import { UploadSongResponseDto } from './dto/upload-response';
 
 @ApiTags('Songs')
-@ApiExtraModels(UserNotFoundError, AlbumNotFoundError)
+@ApiExtraModels(ErrorResponseDto)
 @Controller('songs')
 export class SongsController {
   constructor(private readonly songsService: SongsService) {}
@@ -75,7 +72,7 @@ export class SongsController {
   })
   @ApiOkResponse({
     description: 'Presigned streaming URL retrieved successfully',
-    type: PlayUrl,
+    type: PlayUrlDto,
   })
   @ApiQuery({
     name: 'quality',
@@ -180,7 +177,7 @@ export class SongsController {
   })
   @ApiCreatedResponse({
     description: 'Song uploaded successfully',
-    type: UploadResponse,
+    type: UploadSongResponseDto,
   })
   @ApiUnprocessableEntityResponse({
     description: 'Invalid file type',
@@ -347,9 +344,18 @@ export class SongsController {
     type: 'object',
     example: {
       count: 10,
-      songs: [SongDto],
+      songs: [
+        {
+          id: 'b3c96090-0716-462a-a33a-06087f2a9c1b',
+          title: 'Moonlight Sonata: Movement 1',
+          albumId: '93c908b3-310e-4eda-aedc-55923a2a09c3',
+          genreId: 'ff1d1f19-c04d-44d6-9ab3-9b3bc007b7f6',
+          duration: 360,
+          createdAt: '2026-08-01T12:00:00.000Z',
+          updatedAt: '2026-08-01T12:00:00.000Z',
+        },
+      ],
     },
-    isArray: true,
   })
   @ApiQuery({
     name: 'offset',

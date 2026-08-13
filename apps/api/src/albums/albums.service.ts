@@ -42,7 +42,7 @@ export class AlbumsService {
 
     const [albums, countResult] = await Promise.all([
       this.db.$queryRaw<Album[]>`
-         SELECT id, title, releaseDate, createdAt, updatedAt, userId
+         SELECT id, title, "releaseDate", "createdAt", "updatedAt", "userId"
          FROM "Album"
          WHERE title % ${title}::text
          ORDER BY similarity(title, ${title}::text) DESC

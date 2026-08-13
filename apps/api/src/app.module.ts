@@ -101,6 +101,7 @@ import { CustomPrometheusController } from './common/prometheus.controller';
         connection: {
           host: config.get<string>('REDIS_HOST'),
           port: Number(config.get<string>('REDIS_PORT')),
+          maxRetriesPerRequest: null,
         },
         defaultJobOptions: {
           attempts: 3,

@@ -62,6 +62,8 @@ export class UsersController {
       updatedAt: new Date(),
       email: 'john.doe@example.com',
       verified: true,
+      avatar: null,
+      role: 'USER',
     },
   })
   @ApiNotFoundResponse({

@@ -90,6 +90,11 @@ export const SessionSchema = z.object({
 
 // Songs
 
+export const PlayUrlSchema = z.object({
+  url: z.string().describe("The play URL"),
+  expiresIn: z.number().describe("The number of seconds until the URL expires"),
+});
+
 export const SongSchema = z.object({
   id: z.uuidv4().describe("The ID of the song"),
   title: z.string().describe("The track title"),
@@ -108,6 +113,13 @@ export const UploadSongSchema = z.object({
     .number()
     .max(1800)
     .describe("The track duration in seconds"),
+});
+
+export const UploadSongResponseSchema = z.object({
+  id: z.uuidv4().describe("The ID of the song"),
+  message: z
+    .string()
+    .describe("A message indicating the success of the upload"),
 });
 
 export const EditSongSchema = UploadSongSchema.extend({
@@ -246,4 +258,10 @@ export const MessageResponseSchema = z.object({
   message: z
     .string()
     .describe("A message sent by an endpoint in case of 2XX response"),
+});
+
+export const ErrorResponseSchema = z.object({
+  statusCode: z.number().describe("The status code of the error"),
+  message: z.string().describe("The error message"),
+  errorCode: z.string().describe("The error code"),
 });

@@ -17,7 +17,6 @@ async function bootstrap() {
   });
   const redisIoAdapter = new RedisIoAdapter(app.getHttpServer());
   await redisIoAdapter.connectToRedis();
-
   app.useLogger(app.get(Logger));
   app.useWebSocketAdapter(redisIoAdapter);
   app.use(cookieParser());

@@ -1,12 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ErrorResponseSchema } from '@repo/types';
+import { createZodDto } from 'nestjs-zod';
 
-export class ErrorResponseDto {
-  @ApiProperty({ example: 401 })
-  statusCode!: number;
-
-  @ApiProperty({ example: 'Unauthorized' })
-  message!: string;
-
-  @ApiProperty({ example: 'UNAUTHORIZED', required: false })
-  errorCode?: string;
-}
+export class ErrorResponseDto extends createZodDto(ErrorResponseSchema) {}

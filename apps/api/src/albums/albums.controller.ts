@@ -380,11 +380,21 @@ export class AlbumsController {
   })
   @ApiOkResponse({
     description: 'List of liked albums',
+    type: 'object',
     example: {
       count: 10,
-      songs: [AlbumDto],
+      albums: [
+        {
+          id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
+          title: 'Album Title',
+          cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
+          userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
+          releaseDate: '2026-08-01T00:00:00.000Z',
+          createdAt: '2026-08-01T00:00:00.000Z',
+          updatedAt: '2026-08-01T00:00:00.000Z',
+        },
+      ],
     },
-    isArray: true,
   })
   @ApiQuery({
     name: 'offset',
