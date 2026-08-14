@@ -256,26 +256,6 @@ export class AlbumsController {
         releaseDate: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
-        songs: [
-          {
-            id: '8ed07a4b-1876-4b13-afc1-6b9c54fa5d3b',
-            title: 'Song Title',
-            albumId: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
-            genreId: '53ad4a23-c032-4196-b32f-d5282ab59915',
-            duration: 168,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-          {
-            id: '5c1285b1-d2cc-4f42-9d25-4a99bdeb9ae4',
-            title: 'Song Title',
-            albumId: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
-            genreId: '53ad4a23-c032-4196-b32f-d5282ab59915',
-            duration: 160,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-        ],
       },
       {
         id: '93e8f66e-61a4-46f2-b589-d8eb7bc73575',
@@ -285,26 +265,6 @@ export class AlbumsController {
         releaseDate: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
-        songs: [
-          {
-            id: '301fee99-1afe-4208-9e93-f31dc2e23a4c',
-            title: 'Song Title',
-            albumId: '93e8f66e-61a4-46f2-b589-d8eb7bc73575',
-            genreId: '53ad4a23-c032-4196-b32f-d5282ab59915',
-            duration: 168,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-          {
-            id: 'd31281d6-2232-4368-bac2-c227d2e80fea',
-            title: 'Song Title',
-            albumId: '93e8f66e-61a4-46f2-b589-d8eb7bc73575',
-            genreId: '53ad4a23-c032-4196-b32f-d5282ab59915',
-            duration: 160,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-        ],
       },
     ],
   })

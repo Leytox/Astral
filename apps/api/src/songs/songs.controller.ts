@@ -76,7 +76,7 @@ export class SongsController {
   })
   @ApiQuery({
     name: 'quality',
-    enum: ['low', 'medium', 'high', 'lossless'],
+    enum: ['data_saver', 'low', 'medium', 'high', 'ultra', 'lossless'],
     required: false,
   })
   @ApiParam({
@@ -133,7 +133,7 @@ export class SongsController {
     description: 'The quality of the song to play',
     required: false,
     type: String,
-    enum: ['low', 'medium', 'high', 'lossless'],
+    enum: ['data_saver', 'low', 'medium', 'high', 'ultra', 'lossless'],
     default: 'medium',
   })
   @HttpCode(HttpStatus.PARTIAL_CONTENT)

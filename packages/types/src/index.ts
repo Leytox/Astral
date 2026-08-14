@@ -16,7 +16,8 @@ export interface RequestInfo {
   device: string;
 }
 
-export type AudioQuality = "low" | "medium" | "high" | "lossless";
+export type AudioQuality =
+  "data_saver" | "low" | "medium" | "high" | "ultra" | "lossless";
 
 // Auth
 
