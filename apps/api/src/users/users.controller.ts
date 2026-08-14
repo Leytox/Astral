@@ -63,7 +63,6 @@ export class UsersController {
       email: 'john.doe@example.com',
       verified: true,
       avatar: null,
-      role: 'USER',
     },
   })
   @ApiNotFoundResponse({
@@ -92,6 +91,7 @@ export class UsersController {
       username: 'johny',
       createdAt: new Date(),
       updatedAt: new Date(),
+      avatar: null,
     },
   })
   @ApiNotFoundResponse({

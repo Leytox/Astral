@@ -246,27 +246,30 @@ export class AlbumsController {
   })
   @ApiOkResponse({
     description: 'List of albums',
-    type: AlbumDto,
-    example: [
-      {
-        id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
-        title: 'Album Title',
-        cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
-        userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
-        releaseDate: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '93e8f66e-61a4-46f2-b589-d8eb7bc73575',
-        title: 'Album Title #2',
-        cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
-        userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
-        releaseDate: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ],
+    type: 'object',
+    example: {
+      albums: [
+        {
+          id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
+          title: 'Album Title',
+          cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
+          userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
+          releaseDate: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: '93e8f66e-61a4-46f2-b589-d8eb7bc73575',
+          title: 'Album Title #2',
+          cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
+          userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
+          releaseDate: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      count: 2,
+    },
   })
   @ApiQuery({
     name: 'offset',

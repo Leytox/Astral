@@ -166,6 +166,7 @@ export const GetProfileSchema = z.object({
   updatedAt: z.iso.date().describe("The date the user was last updated"),
   email: z.email().describe("Email address of the user"),
   verified: z.boolean().describe("Whether the user is verified"),
+  avatar: z.url().nullish().describe("The avatar image URL of the user"),
 });
 
 export const GetUserSchema = z.object({
@@ -175,6 +176,7 @@ export const GetUserSchema = z.object({
   username: z.string().min(3).max(64).describe("The username of the user"),
   createdAt: z.iso.date().describe("The date the user was created"),
   updatedAt: z.iso.date().describe("The date the user was last updated"),
+  avatar: z.url().nullish().describe("The avatar image URL of the user"),
 });
 
 export const EditUserSchema = RegisterSchema.pick({

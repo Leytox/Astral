@@ -76,34 +76,36 @@ export class GenresController {
   })
   @ApiOkResponse({
     description: 'Genres retrieved successfully',
-    type: GenreDto,
-    isArray: true,
-    example: [
-      {
-        id: '96170c54-a5f5-4256-9dc7-5aad543176ca',
-        name: 'Rock',
-        description:
-          'Rock is a genre of music that originated in the United States and is characterized by its powerful, often aggressive sound.',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '669a5858-31d9-4552-9b96-ce3d3bd652af',
-        name: 'Pop',
-        description:
-          'Pop is a genre of music that originated in the United States and is characterized by its catchy, melodic sound.',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: 'cbab89bb-236d-43a1-b9ec-d0147a125e9a',
-        name: 'Hip Hop',
-        description:
-          'Hip Hop is a genre of music that originated in the United States and is characterized by its rhythmic, electronic sound.',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ],
+    type: 'object',
+    example: {
+      genres: [
+        {
+          id: '96170c54-a5f5-4256-9dc7-5aad543176ca',
+          name: 'Rock',
+          description:
+            'Rock is a genre of music that originated in the United States and is characterized by its powerful, often aggressive sound.',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: '669a5858-31d9-4552-9b96-ce3d3bd652af',
+          name: 'Pop',
+          description:
+            'Pop is a genre of music that originated in the United States and is characterized by its catchy, melodic sound.',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: 'cbab89bb-236d-43a1-b9ec-d0147a125e9a',
+          name: 'Hip Hop',
+          description:
+            'Hip Hop is a genre of music that originated in the United States and is characterized by its rhythmic, electronic sound.',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      count: 3,
+    },
   })
   @ApiNotFoundResponse({
     description: 'Genres not found',

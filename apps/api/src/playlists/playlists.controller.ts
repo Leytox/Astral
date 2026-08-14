@@ -47,26 +47,28 @@ export class PlaylistsController {
   })
   @ApiOkResponse({
     description: 'Playlists retrieved successfully',
-    example: [
-      {
-        id: '0829f8fa-4a91-463e-a19b-2aea1be7018a',
-        name: 'just4me',
-        isPublic: false,
-        userId: '83fb361c-776b-412b-b6fa-f78732e98bf6',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '002cea60-55d0-4265-a9df-779bb6f665b6',
-        name: '4all',
-        isPublic: true,
-        userId: '83fb361c-776b-412b-b6fa-f78732e98bf6',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ],
-    type: PlaylistDto,
-    isArray: true,
+    type: 'object',
+    example: {
+      playlists: [
+        {
+          id: '0829f8fa-4a91-463e-a19b-2aea1be7018a',
+          name: 'just4me',
+          isPublic: false,
+          userId: '83fb361c-776b-412b-b6fa-f78732e98bf6',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          id: '002cea60-55d0-4265-a9df-779bb6f665b6',
+          name: '4all',
+          isPublic: true,
+          userId: '83fb361c-776b-412b-b6fa-f78732e98bf6',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      count: 2,
+    },
   })
   @ApiUnauthorizedResponse({
     description: 'Missing or invalid access token',
