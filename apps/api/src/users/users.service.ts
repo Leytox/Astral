@@ -1,19 +1,20 @@
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   Inject,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PrismaService } from '../database/prisma.service';
-import { EditUserDto } from './dto/edit-user.dto';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { User } from '../generated/prisma/client';
-import { EmailService } from '../email/email.service';
 import { fileTypeFromBuffer } from 'file-type';
-import { UploadService } from '../upload/upload.service';
 import { InjectS3, type S3 } from 'nestjs-s3';
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { PrismaService } from '../database/prisma.service';
+import { EmailService } from '../email/email.service';
+import { User } from '../generated/prisma/client';
 import { PresignService } from '../upload/presign.service';
+import { UploadService } from '../upload/upload.service';
+import { EditUserDto } from './dto/edit-user.dto';
 
 @Injectable()
 export class UsersService {

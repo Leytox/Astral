@@ -1,5 +1,6 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
+
 import { AudioService } from './audio.service';
 
 @Processor('audio')

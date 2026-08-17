@@ -1,7 +1,8 @@
 import { ConfigService } from '@nestjs/config';
+
 import { AccessTokenStrategy } from './jwt-access.strategy';
-import { RefreshTokenStrategy } from './jwt-refresh.strategy';
 import { OptionalTokenStrategy } from './jwt-optional.strategy';
+import { RefreshTokenStrategy } from './jwt-refresh.strategy';
 
 const mockConfig = {
   get: jest.fn((key: string) =>

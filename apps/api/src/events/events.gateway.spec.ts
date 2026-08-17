@@ -1,6 +1,7 @@
-import { Test } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { Test } from '@nestjs/testing';
+
 import { EventsGateway } from './events.gateway';
 
 describe('EventsGateway', () => {

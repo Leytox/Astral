@@ -1,7 +1,7 @@
 {
   "name": "@repo/types",
   "version": "0.0.0",
-  "module": "index.ts",
+  "module": "./src/index.ts",
   "type": "module",
   "private": true,
   "main": "./dist/index.js",

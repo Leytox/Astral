@@ -1,15 +1,16 @@
+import { Logger as NestLogger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import { cleanupOpenApiDoc } from 'nestjs-zod';
-import { AppModule } from './app.module';
-import { Logger as NestLogger } from '@nestjs/common';
-import { Logger } from 'nestjs-pino';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { RedisIoAdapter } from './events/redis-io.adapter';
+import type { NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
-import { NextFunction, Request, Response } from 'express';
+import { Logger } from 'nestjs-pino';
+import { cleanupOpenApiDoc } from 'nestjs-zod';
+
+import { AppModule } from './app.module';
+import { RedisIoAdapter } from './events/redis-io.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {

@@ -12,9 +12,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from '../common/decorators/user.decorator';
-import type { AccessJwtPayload } from '@repo/types';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -27,13 +25,16 @@ import {
   ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { EditUserDto } from './dto/edit-user.dto';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { ErrorResponseDto } from '../common/dto/error-response.dto';
-import { GetUserDto } from './dto/get-user.dto';
-import { GetProfileDto } from './dto/get-profile.dto';
+import type { AccessJwtPayload } from '@repo/types';
+
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { User } from '../common/decorators/user.decorator';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { EditUserDto } from './dto/edit-user.dto';
+import { GetProfileDto } from './dto/get-profile.dto';
+import { GetUserDto } from './dto/get-user.dto';
+import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @Controller('users')

@@ -1,18 +1,19 @@
-import { Test } from '@nestjs/testing';
 import {
   ConflictException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Test } from '@nestjs/testing';
 import bcrypt from 'bcrypt';
-import geoip from 'geoip-lite';
-import { AuthService } from './auth.service';
-import { PrismaService } from '../database/prisma.service';
-import { TokenService } from './token.service';
-import { CookieService } from './cookie.service';
-import { EmailService } from '../email/email.service';
 import type { Request, Response } from 'express';
+import geoip from 'geoip-lite';
+
+import { PrismaService } from '../database/prisma.service';
+import { EmailService } from '../email/email.service';
+import { AuthService } from './auth.service';
+import { CookieService } from './cookie.service';
+import { TokenService } from './token.service';
 
 jest.mock('bcrypt', () => ({
   hash: jest.fn(),

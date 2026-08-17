@@ -1,12 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { SearchService } from './search.service';
 import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { SearchResponseDto } from './dto/search.dto';
+import { SearchService } from './search.service';
 
 @ApiTags('Search')
 @Controller('search')

@@ -1,6 +1,6 @@
-import { GenreDto } from './genre.dto';
 import { CreateGenreDto } from './create-genre.dto';
 import { EditGenreDto } from './edit-genre.dto';
+import { GenreDto } from './genre.dto';
 
 const validSong = {
   id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',

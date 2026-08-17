@@ -20,5 +20,13 @@
     "test": {
       "dependsOn": ["^test"]
     }
-  }
+  },
+  "globalEnv": [
+    "NODE_ENV",
+    "DATABASE_URL",
+    "REDIS_HOST",
+    "REDIS_PORT",
+    "APP_BASE_URL",
+    "PORT"
+  ]
 }

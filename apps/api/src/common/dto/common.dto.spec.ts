@@ -1,5 +1,5 @@
-import { PaginationDto } from './pagination.dto';
 import { MessageResponseDto } from './message-response.dto';
+import { PaginationDto } from './pagination.dto';
 
 describe('PaginationDto', () => {
   const parse = (input: unknown) => PaginationDto.schema.safeParse(input);

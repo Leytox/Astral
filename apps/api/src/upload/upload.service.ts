@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { writeFile, copyFile } from 'fs/promises';
+import { copyFile, writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
 

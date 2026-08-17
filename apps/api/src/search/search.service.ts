@@ -1,8 +1,9 @@
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../database/prisma.service';
-import { SearchResponseDto } from './dto/search.dto';
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 import { PresignService } from '../upload/presign.service';
+import { SearchResponseDto } from './dto/search.dto';
 
 @Injectable()
 export class SearchService {

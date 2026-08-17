@@ -1,8 +1,9 @@
-import { Test } from '@nestjs/testing';
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { PresignService } from './presign.service';
+import { Test } from '@nestjs/testing';
 import type { AudioQuality } from '@repo/types';
+
+import { PresignService } from './presign.service';
 
 jest.mock('@aws-sdk/s3-request-presigner', () => ({
   getSignedUrl: jest.fn(),

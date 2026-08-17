@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
+
+import { SongsModule } from '../songs/songs.module';
+import { UploadModule } from '../upload/upload.module';
 import { AlbumsController } from './albums.controller';
 import { AlbumsService } from './albums.service';
-import { UploadModule } from '../upload/upload.module';
-import { SongsModule } from '../songs/songs.module';
 
 @Module({
   imports: [UploadModule, SongsModule],

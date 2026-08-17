@@ -3,9 +3,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { spawn } from 'child_process';
 import { randomUUID } from 'crypto';
-import { join } from 'path';
-import { tmpdir } from 'os';
 import { unlink } from 'fs/promises';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
 import { AUDIO_QUALITIES } from '../common/consts';
 
 @Injectable()

@@ -1,7 +1,8 @@
-import { Test } from '@nestjs/testing';
 import { getQueueToken } from '@nestjs/bullmq';
 import { ConfigService } from '@nestjs/config';
+import { Test } from '@nestjs/testing';
 import type { Lookup } from 'geoip-lite';
+
 import { EmailService } from './email.service';
 
 describe('EmailService', () => {

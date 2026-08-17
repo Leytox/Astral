@@ -1,8 +1,9 @@
-import { Test } from '@nestjs/testing';
-import { ConflictException, NotFoundException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { GenresService } from './genres.service';
+import { ConflictException, NotFoundException } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+
 import { PrismaService } from '../database/prisma.service';
+import { GenresService } from './genres.service';
 
 describe('GenresService', () => {
   let service: GenresService;

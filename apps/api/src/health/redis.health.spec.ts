@@ -1,6 +1,7 @@
-import { Test } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { HealthIndicatorService } from '@nestjs/terminus';
+import { Test } from '@nestjs/testing';
+
 import { RedisHealthIndicator } from './redis.health';
 
 describe('RedisHealthIndicator', () => {

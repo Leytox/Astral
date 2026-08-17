@@ -1,10 +1,10 @@
-import { RegisterDto } from './register.dto';
-import { LoginDto } from './login.dto';
-import { VerificationCodeDto } from './verification-code.dto';
 import { ForgotPasswordDto } from './forgot-password.dto';
+import { LoginDto } from './login.dto';
 import { RefreshDto } from './refresh.dto';
+import { RegisterDto } from './register.dto';
 import { ResetPasswordDto } from './reset-password.dto';
 import { SessionDto } from './session.dto';
+import { VerificationCodeDto } from './verification-code.dto';
 
 const validRegistration = {
   email: 'john@example.com',

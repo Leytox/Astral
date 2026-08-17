@@ -1,10 +1,11 @@
-import { Test } from '@nestjs/testing';
 import { Logger } from '@nestjs/common';
-import { Readable } from 'stream';
+import { Test } from '@nestjs/testing';
 import { createReadStream } from 'fs';
 import { unlink } from 'fs/promises';
-import { UploadProcessor } from './upload.processor';
+import { Readable } from 'stream';
+
 import { EventsGateway } from '../events/events.gateway';
+import { UploadProcessor } from './upload.processor';
 
 jest.mock('fs', () => ({
   ...jest.requireActual('fs'),

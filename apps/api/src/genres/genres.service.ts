@@ -1,16 +1,17 @@
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   ConflictException,
   Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import { PrismaService } from '../database/prisma.service';
+import { Genre } from '../generated/prisma/client';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { EditGenreDto } from './dto/edit-genre.dto';
-import { PaginationDto } from '../common/dto/pagination.dto';
-import { Genre } from '../generated/prisma/client';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 
 @Injectable()
 export class GenresService {

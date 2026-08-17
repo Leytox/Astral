@@ -14,10 +14,6 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AlbumsService } from './albums.service';
-import { CreateAlbumDto } from './dto/create-album.dto';
-import { User } from '../common/decorators/user.decorator';
-import type { AccessJwtPayload } from '@repo/types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
@@ -33,14 +29,19 @@ import {
   ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { EditAlbumDto } from './dto/edit-album.dto';
-import { AlbumDto } from './dto/album.dto';
-import { Album } from '../generated/prisma/client';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { ErrorResponseDto } from '../common/dto/error-response.dto';
-import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
+import type { AccessJwtPayload } from '@repo/types';
+
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
+import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
+import { User } from '../common/decorators/user.decorator';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { MessageResponseDto } from '../common/dto/message-response.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
+import { Album } from '../generated/prisma/client';
+import { AlbumsService } from './albums.service';
+import { AlbumDto } from './dto/album.dto';
+import { CreateAlbumDto } from './dto/create-album.dto';
+import { EditAlbumDto } from './dto/edit-album.dto';
 
 @ApiTags('Albums')
 @Controller('albums')

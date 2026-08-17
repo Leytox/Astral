@@ -21,18 +21,19 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { PlaylistsService } from './playlists.service';
-import { User } from '../common/decorators/user.decorator';
 import type { AccessJwtPayload } from '@repo/types';
-import { PaginationDto } from '../common/dto/pagination.dto';
-import { PlaylistDto } from './dto/playlist.dto';
-import { AddSongToPlaylistDto } from './dto/add-song-to-playlist.dto';
-import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
+
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
+import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
+import { User } from '../common/decorators/user.decorator';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { AddSongToPlaylistDto } from './dto/add-song-to-playlist.dto';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { EditPlaylistDto } from './dto/edit-playlist.dto';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { PlaylistDto } from './dto/playlist.dto';
+import { PlaylistsService } from './playlists.service';
 
 @ApiTags('Playlists')
 @Controller('playlists')

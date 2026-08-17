@@ -1,8 +1,9 @@
-import { Test } from '@nestjs/testing';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { SearchService } from './search.service';
+import { Test } from '@nestjs/testing';
+
 import { PrismaService } from '../database/prisma.service';
 import { PresignService } from '../upload/presign.service';
+import { SearchService } from './search.service';
 
 describe('SearchService', () => {
   let service: SearchService;

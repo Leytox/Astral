@@ -1,5 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { MailerService } from '@nestjs-modules/mailer';
+
 import { EmailProcessor } from './email.processor';
 
 describe('EmailProcessor', () => {

@@ -2,10 +2,11 @@ import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3Module } from 'nestjs-s3';
-import { UploadService } from './upload.service';
-import { UploadProcessor } from './upload.processor';
+
 import { EventsModule } from '../events/events.module';
 import { PresignService } from './presign.service';
+import { UploadProcessor } from './upload.processor';
+import { UploadService } from './upload.service';
 
 @Module({
   imports: [

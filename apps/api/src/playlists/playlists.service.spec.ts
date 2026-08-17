@@ -1,8 +1,9 @@
-import { Test } from '@nestjs/testing';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { PlaylistsService } from './playlists.service';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+
 import { PrismaService } from '../database/prisma.service';
+import { PlaylistsService } from './playlists.service';
 
 describe('PlaylistsService', () => {
   let service: PlaylistsService;

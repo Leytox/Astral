@@ -1,6 +1,7 @@
-import { Test } from '@nestjs/testing';
 import { getQueueToken } from '@nestjs/bullmq';
-import { writeFile, copyFile } from 'fs/promises';
+import { Test } from '@nestjs/testing';
+import { copyFile, writeFile } from 'fs/promises';
+
 import { UploadService } from './upload.service';
 
 jest.mock('fs/promises', () => ({

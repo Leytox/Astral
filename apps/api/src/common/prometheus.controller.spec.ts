@@ -1,6 +1,7 @@
 import { Test } from '@nestjs/testing';
-import { CustomPrometheusController } from './prometheus.controller';
 import type { Response } from 'express';
+
+import { CustomPrometheusController } from './prometheus.controller';
 
 jest.mock('prom-client', () => ({
   register: {

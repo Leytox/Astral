@@ -3,21 +3,20 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
+  HttpCode,
   HttpStatus,
   Param,
   ParseFilePipeBuilder,
   Patch,
   Post,
+  Query,
   Res,
   StreamableFile,
   UploadedFile,
   UseGuards,
-  Headers,
   UseInterceptors,
-  HttpCode,
-  Query,
 } from '@nestjs/common';
-import { SongsService } from './songs.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
@@ -39,20 +38,22 @@ import {
   ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { diskStorage } from 'multer';
-import { UploadSongDto } from './dto/upload.dto';
-import { EditSongDto } from './dto/edit.dto';
-import type { Response } from 'express';
-import { type AccessJwtPayload, type AudioQuality } from '@repo/types';
-import { User } from '../common/decorators/user.decorator';
-import { tmpdir } from 'os';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { ErrorResponseDto } from '../common/dto/error-response.dto';
-import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
-import { PaginationDto } from '../common/dto/pagination.dto';
 import { SkipThrottle } from '@nestjs/throttler';
+import { type AccessJwtPayload, type AudioQuality } from '@repo/types';
+import type { Response } from 'express';
+import { diskStorage } from 'multer';
+import { tmpdir } from 'os';
+
+import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
+import { User } from '../common/decorators/user.decorator';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { EditSongDto } from './dto/edit.dto';
 import { PlayUrlDto } from './dto/play-url.response';
+import { UploadSongDto } from './dto/upload.dto';
 import { UploadSongResponseDto } from './dto/upload-response';
+import { SongsService } from './songs.service';
 
 @ApiTags('Songs')
 @ApiExtraModels(ErrorResponseDto)

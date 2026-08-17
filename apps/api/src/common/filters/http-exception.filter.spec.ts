@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+
 import { GlobalHttpExceptionFilter } from './http-exception.filter';
 
 describe('GlobalHttpExceptionFilter', () => {

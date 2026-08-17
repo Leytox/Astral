@@ -1,15 +1,16 @@
-import { Test } from '@nestjs/testing';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Test } from '@nestjs/testing';
 import { fileTypeFromBuffer } from 'file-type';
-import { UsersService } from './users.service';
+
 import { PrismaService } from '../database/prisma.service';
 import { EmailService } from '../email/email.service';
-import { UploadService } from '../upload/upload.service';
 import { PresignService } from '../upload/presign.service';
+import { UploadService } from '../upload/upload.service';
+import { UsersService } from './users.service';
 
 // file-type is ESM-only; both users.service and this spec load it.
 jest.mock('file-type', () => ({

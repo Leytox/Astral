@@ -1,7 +1,7 @@
 import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Queue } from 'bullmq';
 import type { Lookup } from 'geoip-lite';
 
 @Injectable()

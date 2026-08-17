@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import type { RequestInfo } from '@repo/types';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { UAParser } from 'ua-parser-js';
 export const GetRequestInfo = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext): RequestInfo => {

@@ -1,4 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg';
+
 import { PrismaService } from './prisma.service';
 
 jest.mock('@prisma/adapter-pg', () => ({

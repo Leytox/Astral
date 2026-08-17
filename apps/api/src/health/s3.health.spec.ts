@@ -1,5 +1,6 @@
-import { Test } from '@nestjs/testing';
 import { HealthIndicatorService } from '@nestjs/terminus';
+import { Test } from '@nestjs/testing';
+
 import { S3HealthIndicator } from './s3.health';
 
 describe('S3HealthIndicator', () => {

@@ -1,31 +1,33 @@
+import crypto from 'node:crypto';
+
+import KeyvRedis from '@keyv/redis';
+import { BullModule } from '@nestjs/bullmq';
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { CacheModule } from '@nestjs/cache-manager';
-import { BullModule } from '@nestjs/bullmq';
-import KeyvRedis from '@keyv/redis';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { LoggerModule } from 'nestjs-pino';
 import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
 import { join } from 'path';
-import { UploadModule } from './upload/upload.module';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { SongsModule } from './songs/songs.module';
-import { CustomConfigModule } from './config/config.module';
-import { EmailModule } from './email/email.module';
-import { GenresModule } from './genres/genres.module';
+
 import { AlbumsModule } from './albums/albums.module';
+import { AuthModule } from './auth/auth.module';
+import { GlobalHttpExceptionFilter } from './common/filters/http-exception.filter';
+import { CustomPrometheusController } from './common/prometheus.controller';
+import { CustomConfigModule } from './config/config.module';
+import { PrismaModule } from './database/prisma.module';
+import { EmailModule } from './email/email.module';
 import { EventsModule } from './events/events.module';
+import { GenresModule } from './genres/genres.module';
+import { HealthModule } from './health/health.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { SearchModule } from './search/search.module';
-import { HealthModule } from './health/health.module';
-import { PrismaModule } from './database/prisma.module';
-import { GlobalHttpExceptionFilter } from './common/filters/http-exception.filter';
-import { LoggerModule } from 'nestjs-pino';
-import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import crypto from 'node:crypto';
-import { CustomPrometheusController } from './common/prometheus.controller';
+import { SongsModule } from './songs/songs.module';
+import { UploadModule } from './upload/upload.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [

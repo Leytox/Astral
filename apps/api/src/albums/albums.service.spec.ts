@@ -1,15 +1,16 @@
-import { Test } from '@nestjs/testing';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Test } from '@nestjs/testing';
 import { fileTypeFromBuffer } from 'file-type';
-import { AlbumsService } from './albums.service';
+
 import { PrismaService } from '../database/prisma.service';
-import { UploadService } from '../upload/upload.service';
 import { SongsService } from '../songs/songs.service';
 import { PresignService } from '../upload/presign.service';
+import { UploadService } from '../upload/upload.service';
+import { AlbumsService } from './albums.service';
 
 jest.mock('file-type', () => ({
   fileTypeFromBuffer: jest.fn(),

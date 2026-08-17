@@ -1,6 +1,6 @@
-import { PlaylistDto } from './playlist.dto';
 import { CreatePlaylistDto } from './create-playlist.dto';
 import { EditPlaylistDto } from './edit-playlist.dto';
+import { PlaylistDto } from './playlist.dto';
 
 const validSong = {
   id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',

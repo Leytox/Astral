@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
 import { ConfigService } from '@nestjs/config';
+
+import { AuthModule } from '../auth/auth.module';
 import { EmailModule } from '../email/email.module';
 import { UploadModule } from '../upload/upload.module';
-import { AuthModule } from '../auth/auth.module';
+import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
 
 @Module({
   imports: [EmailModule, UploadModule, AuthModule],

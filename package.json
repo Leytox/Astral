@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@nestjs/mapped-types": "^2.1.1",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "eslint-plugin-simple-import-sort": "^14.0.0"
   },

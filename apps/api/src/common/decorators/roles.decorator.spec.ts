@@ -1,5 +1,5 @@
-import { Roles, ROLES_KEY } from './roles.decorator';
 import type { Role } from '../../generated/prisma/client';
+import { Roles, ROLES_KEY } from './roles.decorator';
 
 describe('Roles decorator', () => {
   it('exposes ROLES_KEY as "roles"', () => {

@@ -1,11 +1,12 @@
-import { Test } from '@nestjs/testing';
-import { Logger } from '@nestjs/common';
 import { getQueueToken } from '@nestjs/bullmq';
-import { EventEmitter } from 'events';
+import { Logger } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
 import { spawn } from 'child_process';
+import { EventEmitter } from 'events';
 import { unlink } from 'fs/promises';
-import { AudioService } from './audio.service';
+
 import { AUDIO_QUALITIES } from '../common/consts';
+import { AudioService } from './audio.service';
 
 jest.mock('child_process', () => ({ spawn: jest.fn() }));
 

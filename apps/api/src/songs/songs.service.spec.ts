@@ -1,4 +1,5 @@
-import { Test } from '@nestjs/testing';
+import { getQueueToken } from '@nestjs/bullmq';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   ConflictException,
   HttpException,
@@ -7,16 +8,16 @@ import {
   StreamableFile,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { getQueueToken } from '@nestjs/bullmq';
-import { Readable } from 'stream';
-import { copyFile, unlink } from 'fs/promises';
+import { Test } from '@nestjs/testing';
 import { fileTypeFromFile } from 'file-type';
-import { SongsService } from './songs.service';
-import { PrismaService } from '../database/prisma.service';
-import { UploadService } from '../upload/upload.service';
-import { PresignService } from '../upload/presign.service';
+import { copyFile, unlink } from 'fs/promises';
+import { Readable } from 'stream';
+
 import { AUDIO_QUALITIES } from '../common/consts';
+import { PrismaService } from '../database/prisma.service';
+import { PresignService } from '../upload/presign.service';
+import { UploadService } from '../upload/upload.service';
+import { SongsService } from './songs.service';
 
 jest.mock('file-type', () => ({
   fileTypeFromBuffer: jest.fn(),

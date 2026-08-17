@@ -1,5 +1,6 @@
-import { GetRequestInfo } from './request-info.decorator';
 import { UAParser } from 'ua-parser-js';
+
+import { GetRequestInfo } from './request-info.decorator';
 
 // ua-parser-js v2 is ESM-only, so it cannot be require()d by ts-jest.
 jest.mock('ua-parser-js', () => ({

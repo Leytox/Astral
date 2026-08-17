@@ -1,7 +1,8 @@
-import { Test } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
-import { CookieService } from './cookie.service';
+import { Test } from '@nestjs/testing';
 import type { Request, Response } from 'express';
+
+import { CookieService } from './cookie.service';
 
 describe('CookieService', () => {
   let service: CookieService;

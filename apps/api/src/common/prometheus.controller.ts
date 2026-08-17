@@ -1,4 +1,3 @@
-import { PrometheusController } from '@willsoto/nestjs-prometheus';
 import { Controller, Get, Res } from '@nestjs/common';
 import {
   ApiOkResponse,
@@ -6,6 +5,7 @@ import {
   ApiProduces,
   ApiTags,
 } from '@nestjs/swagger';
+import { PrometheusController } from '@willsoto/nestjs-prometheus';
 import type { Response } from 'express';
 
 @ApiTags('Metrics')

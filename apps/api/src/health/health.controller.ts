@@ -1,20 +1,21 @@
 import { Controller, Get } from '@nestjs/common';
 import {
-  HealthCheckService,
-  PrismaHealthIndicator,
-  MemoryHealthIndicator,
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
   DiskHealthIndicator,
   HealthCheck,
+  HealthCheckService,
+  MemoryHealthIndicator,
+  PrismaHealthIndicator,
 } from '@nestjs/terminus';
+
 import { PrismaService } from '../database/prisma.service';
 import { RedisHealthIndicator } from './redis.health';
 import { S3HealthIndicator } from './s3.health';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiOkResponse,
-  ApiInternalServerErrorResponse,
-} from '@nestjs/swagger';
 
 @ApiTags('Health')
 @Controller('health')

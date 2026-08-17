@@ -1,6 +1,6 @@
+import { EditSongDto } from './edit.dto';
 import { SongDto } from './song.dto';
 import { UploadSongDto } from './upload.dto';
-import { EditSongDto } from './edit.dto';
 
 const validSong = {
   id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',

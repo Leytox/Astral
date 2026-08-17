@@ -1,4 +1,5 @@
 import { UnauthorizedException } from '@nestjs/common';
+
 import { LocalStrategy } from './local.strategy';
 
 // AuthService module is loaded transitively; keep its external deps mocked.

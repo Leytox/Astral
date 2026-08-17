@@ -1,21 +1,22 @@
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   Inject,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { PrismaService } from '../database/prisma.service';
-import { CreateAlbumDto } from './dto/create-album.dto';
-import { UploadService } from '../upload/upload.service';
-import { EditAlbumDto } from './dto/edit-album.dto';
-import { SongsService } from '../songs/songs.service';
-import { InjectS3, type S3 } from 'nestjs-s3';
-import { PaginationDto } from '../common/dto/pagination.dto';
-import { Album } from '../generated/prisma/client';
 import { fileTypeFromBuffer } from 'file-type';
+import { InjectS3, type S3 } from 'nestjs-s3';
+
 import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { PaginationDto } from '../common/dto/pagination.dto';
+import { PrismaService } from '../database/prisma.service';
+import { Album } from '../generated/prisma/client';
+import { SongsService } from '../songs/songs.service';
 import { PresignService } from '../upload/presign.service';
+import { UploadService } from '../upload/upload.service';
+import { CreateAlbumDto } from './dto/create-album.dto';
+import { EditAlbumDto } from './dto/edit-album.dto';
 
 @Injectable()
 export class AlbumsService {

@@ -1,3 +1,6 @@
+import crypto from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
+
 import {
   BadRequestException,
   ConflictException,
@@ -6,25 +9,24 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import bcrypt from 'bcrypt';
-import { PrismaService } from '../database/prisma.service';
-import type { Request, Response } from 'express';
-import { User, UserSession } from '../generated/prisma/client';
-import { randomBytes, randomUUID } from 'node:crypto';
-import { CookieService } from './cookie.service';
-import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { RegisterDto } from './dto/register.dto';
-import { TokenService } from './token.service';
-import { ResetPasswordDto } from './dto/reset-password.dto';
-import { EmailService } from '../email/email.service';
-import geoip from 'geoip-lite';
-import crypto from 'node:crypto';
 import type {
   AccessJwtPayload,
   RefreshJwtPayload,
   RequestInfo,
 } from '@repo/types';
+import bcrypt from 'bcrypt';
+import type { Request, Response } from 'express';
+import geoip from 'geoip-lite';
+
 import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { PrismaService } from '../database/prisma.service';
+import { EmailService } from '../email/email.service';
+import { User, UserSession } from '../generated/prisma/client';
+import { CookieService } from './cookie.service';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { RegisterDto } from './dto/register.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {

@@ -20,6 +20,6 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": false,
-    "types": ["node", "Multer", "jest"],
+    "types": ["node", "multer", "jest"],
   },
 }

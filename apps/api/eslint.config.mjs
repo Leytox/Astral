@@ -1,14 +1,14 @@
 // @ts-check
-import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import { config as baseConfig } from '@repo/eslint-config/base';
 
 export default tseslint.config(
+  ...baseConfig,
   {
     ignores: ['eslint.config.mjs'],
   },
-  eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettierRecommended,
   {
@@ -33,9 +33,6 @@ export default tseslint.config(
     },
   },
   {
-    // Spec files are full of intentional `any` casts (mocked dependencies,
-    // `as unknown as` type coercion). The unsafe-* rules add noise without
-    // catching real bugs in tests, so relax them for specs only.
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unsafe-assignment': 'off',

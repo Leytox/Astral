@@ -1,20 +1,17 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
   Post,
-  UseGuards,
   Req,
   Res,
-  Param,
-  Get,
-  Delete,
-  Patch,
+  UseGuards,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { User } from '../generated/prisma/client';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -30,25 +27,29 @@ import {
   ApiTooManyRequestsResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { LoginDto } from './dto/login.dto';
-import type { Request, Response } from 'express';
-import { RefreshDto } from './dto/refresh.dto';
-import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { ResetPasswordDto } from './dto/reset-password.dto';
-import { VerificationCodeDto } from './dto/verification-code.dto';
-import { GetRequestInfo } from '../common/decorators/request-info.decorator';
+import { Throttle } from '@nestjs/throttler';
 import type {
   AccessJwtPayload,
   RefreshJwtPayload,
   RequestInfo,
 } from '@repo/types';
-import { Throttle } from '@nestjs/throttler';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
+import type { Request, Response } from 'express';
+
+import { GetRequestInfo } from '../common/decorators/request-info.decorator';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { User } from '../generated/prisma/client';
+import { AuthService } from './auth.service';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { LoginDto } from './dto/login.dto';
+import { RefreshDto } from './dto/refresh.dto';
+import { RegisterDto } from './dto/register.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { SessionDto } from './dto/session.dto';
-import { LocalAuthGuard } from './guards/local.guard';
-import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { VerificationCodeDto } from './dto/verification-code.dto';
 import { JwtAccessGuard } from './guards/jwt-access.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { LocalAuthGuard } from './guards/local.guard';
 
 @ApiTags('Auth')
 @Controller('auth')

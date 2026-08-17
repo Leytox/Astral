@@ -1,8 +1,9 @@
-import { Test } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { TokenService } from './token.service';
+import { Test } from '@nestjs/testing';
+
 import { User } from '../generated/prisma/client';
+import { TokenService } from './token.service';
 
 describe('TokenService', () => {
   let service: TokenService;

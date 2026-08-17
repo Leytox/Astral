@@ -10,10 +10,11 @@
     "apps/*": {},
     "packages/*": {},
     "apps/api": {
-      "entry": ["src/main.{ts,js}"],
+      "entry": ["src/main.{ts,js}", "src/database/seed.ts"],
       "project": ["src/**/*.{ts,tsx,js}"],
       "ignore": ["dist/**", "build/**", "node_modules/**"],
       "ignoreFiles": ["**/*.d.ts"],
+      "ignoreBinaries": ["ffmpeg"],
       "typescript": {
         "config": ["tsconfig.json"]
       },

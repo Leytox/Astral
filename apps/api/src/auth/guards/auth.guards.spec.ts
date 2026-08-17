@@ -1,7 +1,7 @@
 import { JwtAccessGuard } from './jwt-access.guard';
+import { OptionalJwtAuthGuard } from './jwt-optional-access.guard';
 import { JwtRefreshGuard } from './jwt-refresh.guard';
 import { LocalAuthGuard } from './local.guard';
-import { OptionalJwtAuthGuard } from './jwt-optional-access.guard';
 
 describe('Passport guards', () => {
   it('JwtAccessGuard is a canActivate guard bound to the jwt-access strategy', () => {

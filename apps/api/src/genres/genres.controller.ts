@@ -8,7 +8,6 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { GenresService } from './genres.service';
 import {
   ApiBearerAuth,
   ApiConflictResponse,
@@ -22,16 +21,18 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CreateGenreDto } from './dto/create-genre.dto';
-import { PaginationDto } from '../common/dto/pagination.dto';
-import { EditGenreDto } from './dto/edit-genre.dto';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { ErrorResponseDto } from '../common/dto/error-response.dto';
-import { GenreDto } from './dto/genre.dto';
-import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
+
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
+import { OptionalJwtAuthGuard } from '../auth/guards/jwt-optional-access.guard';
 import { Roles } from '../common/decorators/roles.decorator';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { MessageResponseDto } from '../common/dto/message-response.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import { RolesGuard } from '../common/guards/roles.guard';
+import { CreateGenreDto } from './dto/create-genre.dto';
+import { EditGenreDto } from './dto/edit-genre.dto';
+import { GenreDto } from './dto/genre.dto';
+import { GenresService } from './genres.service';
 
 @ApiTags('Genres')
 @Controller('genres')

@@ -1,8 +1,8 @@
+import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
 import { AudioQuality } from '@repo/types';
 import { InjectS3, type S3 } from 'nestjs-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { GetObjectCommand } from '@aws-sdk/client-s3';
 @Injectable()
 export class PresignService {
   constructor(@InjectS3() private readonly s3: S3) {}

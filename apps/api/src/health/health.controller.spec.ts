@@ -1,14 +1,15 @@
-import { Test } from '@nestjs/testing';
 import {
   DiskHealthIndicator,
   HealthCheckService,
   MemoryHealthIndicator,
   PrismaHealthIndicator,
 } from '@nestjs/terminus';
+import { Test } from '@nestjs/testing';
+
+import { PrismaService } from '../database/prisma.service';
 import { HealthController } from './health.controller';
 import { RedisHealthIndicator } from './redis.health';
 import { S3HealthIndicator } from './s3.health';
-import { PrismaService } from '../database/prisma.service';
 
 describe('HealthController', () => {
   let controller: HealthController;

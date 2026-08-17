@@ -1,16 +1,17 @@
+import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   BadRequestException,
   Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../database/prisma.service';
+
+import { MessageResponseDto } from '../common/dto/message-response.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
+import { PrismaService } from '../database/prisma.service';
+import { Playlist } from '../generated/prisma/client';
 import { CreatePlaylistDto } from './dto/create-playlist.dto';
 import { EditPlaylistDto } from './dto/edit-playlist.dto';
-import { Playlist } from '../generated/prisma/client';
-import { MessageResponseDto } from '../common/dto/message-response.dto';
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 
 @Injectable()
 export class PlaylistsService {

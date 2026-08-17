@@ -4,8 +4,9 @@ import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { createReadStream } from 'fs';
 import { unlink } from 'fs/promises';
-import { InjectS3 } from 'nestjs-s3';
 import type { S3 } from 'nestjs-s3';
+import { InjectS3 } from 'nestjs-s3';
+
 import { EventsGateway } from '../events/events.gateway';
 
 @Processor('upload')
