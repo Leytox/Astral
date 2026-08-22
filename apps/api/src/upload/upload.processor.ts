@@ -7,13 +7,13 @@ import { unlink } from 'fs/promises';
 import type { S3 } from 'nestjs-s3';
 import { InjectS3 } from 'nestjs-s3';
 
-import { EventsGateway } from '../events/events.gateway';
+import { SseService } from '../events/sse.service';
 
 @Processor('upload')
 export class UploadProcessor extends WorkerHost {
   constructor(
     @InjectS3() private readonly s3: S3,
-    private readonly eventsGateway: EventsGateway,
+    private readonly sseService: SseService,
   ) {
     super();
   }
@@ -29,14 +29,14 @@ export class UploadProcessor extends WorkerHost {
       await this.s3.putObject({ Bucket, Key, Body: fileStream, ContentType });
       uploaded = true;
       if (userId)
-        this.eventsGateway.emitToUser(userId, 'upload:success', {
+        await this.sseService.emitToUser(userId, 'upload:success', {
           Key,
           message: 'Song uploaded successfully',
         });
     } catch (error: any) {
       this.logger.error(error);
       if (userId)
-        this.eventsGateway.emitToUser(userId, 'upload:error', {
+        await this.sseService.emitToUser(userId, 'upload:error', {
           Key,
           message: 'Upload has failed',
         });
