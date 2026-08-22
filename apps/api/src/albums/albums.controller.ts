@@ -49,6 +49,57 @@ export class AlbumsController {
   constructor(private readonly albumsService: AlbumsService) {}
 
   @ApiBearerAuth('access-token')
+  @UseGuards(JwtAccessGuard)
+  @ApiOperation({
+    summary: 'Get all liked albums',
+    description:
+      'Returns a list of all albums liked by the authenticated user.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiOkResponse({
+    description: 'List of liked albums',
+    type: 'object',
+    example: {
+      count: 10,
+      albums: [
+        {
+          id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
+          title: 'Album Title',
+          cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
+          userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
+          releaseDate: '2026-08-01T00:00:00.000Z',
+          createdAt: '2026-08-01T00:00:00.000Z',
+          updatedAt: '2026-08-01T00:00:00.000Z',
+        },
+      ],
+    },
+  })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    type: Number,
+    example: 0,
+    description: 'Number of records to skip',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 10,
+    description: 'Maximum number of records to return',
+  })
+  @Get('liked')
+  async getLikedAlbums(
+    @User() user: AccessJwtPayload,
+    @Query() query: PaginationDto,
+  ) {
+    return await this.albumsService.getLikedAlbums(user.sub, query);
+  }
+
+  @ApiBearerAuth('access-token')
   @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({
     summary: 'Get album',
@@ -329,56 +380,6 @@ export class AlbumsController {
     @User() user: AccessJwtPayload,
   ) {
     return await this.albumsService.editAlbum(id, body, user.sub);
-  }
-
-  @ApiBearerAuth('access-token')
-  @UseGuards(JwtAccessGuard)
-  @ApiOperation({
-    summary: 'Get all liked albums',
-    description:
-      'Returns a list of all albums liked by the authenticated user.',
-  })
-  @ApiUnauthorizedResponse({
-    description: 'Missing or invalid access token',
-    type: ErrorResponseDto,
-  })
-  @ApiOkResponse({
-    description: 'List of liked albums',
-    type: 'object',
-    example: {
-      count: 10,
-      albums: [
-        {
-          id: '726c50eb-f4d7-47c1-b9d9-2794a2237b01',
-          title: 'Album Title',
-          cover: 'http://dummyimage.com/185x100.png/ff4444/ffffff',
-          userId: 'a63687ad-614b-4f41-97f5-d00140e3c882',
-          releaseDate: '2026-08-01T00:00:00.000Z',
-          createdAt: '2026-08-01T00:00:00.000Z',
-          updatedAt: '2026-08-01T00:00:00.000Z',
-        },
-      ],
-    },
-  })
-  @ApiQuery({
-    name: 'offset',
-    required: false,
-    type: Number,
-    example: 0,
-    description: 'Number of records to skip',
-  })
-  @ApiQuery({
-    name: 'limit',
-    required: false,
-    type: Number,
-    example: 10,
-    description: 'Maximum number of records to return',
-  })
-  async getLikedAlbums(
-    @User() user: AccessJwtPayload,
-    @Query() query: PaginationDto,
-  ) {
-    return await this.albumsService.getLikedAlbums(user.sub, query);
   }
 
   @ApiBearerAuth('access-token')
