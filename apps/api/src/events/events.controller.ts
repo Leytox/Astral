@@ -5,6 +5,7 @@ import {
   ApiProduces,
   ApiTags,
 } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import type { AccessJwtPayload } from '@repo/types';
 import type { Request, Response } from 'express';
 
@@ -17,6 +18,7 @@ import { SseService } from './sse.service';
 export class EventsController {
   constructor(private readonly sseService: SseService) {}
 
+  @SkipThrottle()
   @Get('subscribe')
   @UseGuards(JwtAccessGuard)
   @ApiBearerAuth('access-token')

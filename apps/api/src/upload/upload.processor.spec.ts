@@ -4,7 +4,7 @@ import { createReadStream } from 'fs';
 import { unlink } from 'fs/promises';
 import { Readable } from 'stream';
 
-import { EventsGateway } from '../events/events.gateway';
+import { SseService } from '../events/sse.service';
 import { UploadProcessor } from './upload.processor';
 
 jest.mock('fs', () => ({
@@ -24,7 +24,7 @@ describe('UploadProcessor', () => {
   let processor: UploadProcessor;
 
   const mockS3 = { putObject: jest.fn() };
-  const mockEventsGateway = { emitToUser: jest.fn() };
+  const mockSseService = { emitToUser: jest.fn() };
 
   beforeEach(async () => {
     jest.clearAllMocks();
@@ -32,7 +32,7 @@ describe('UploadProcessor', () => {
       providers: [
         UploadProcessor,
         { provide: 'default_S3ModuleConnectionToken', useValue: mockS3 },
-        { provide: EventsGateway, useValue: mockEventsGateway },
+        { provide: SseService, useValue: mockSseService },
       ],
     }).compile();
 
@@ -64,7 +64,7 @@ describe('UploadProcessor', () => {
       Body: stream,
       ContentType: 'audio/mp4',
     });
-    expect(mockEventsGateway.emitToUser).toHaveBeenCalledWith(
+    expect(mockSseService.emitToUser).toHaveBeenCalledWith(
       'user-1',
       'upload:success',
       { Key: 'song-1.m4a', message: 'Song uploaded successfully' },
@@ -79,7 +79,7 @@ describe('UploadProcessor', () => {
     await processor.process(makeJob(null) as any);
 
     expect(mockS3.putObject).toHaveBeenCalledTimes(1);
-    expect(mockEventsGateway.emitToUser).not.toHaveBeenCalled();
+    expect(mockSseService.emitToUser).not.toHaveBeenCalled();
     expect(mockUnlink).toHaveBeenCalledWith('/tmp/song-1.m4a');
   });
 
@@ -96,8 +96,8 @@ describe('UploadProcessor', () => {
     );
 
     expect(loggerSpy).toHaveBeenCalledWith(expect.any(Error));
-    expect(mockEventsGateway.emitToUser).toHaveBeenCalledTimes(1);
-    expect(mockEventsGateway.emitToUser).toHaveBeenCalledWith(
+    expect(mockSseService.emitToUser).toHaveBeenCalledTimes(1);
+    expect(mockSseService.emitToUser).toHaveBeenCalledWith(
       'user-1',
       'upload:error',
       { Key: 'song-1.m4a', message: 'Upload has failed' },
@@ -120,7 +120,7 @@ describe('UploadProcessor', () => {
       's3 down',
     );
 
-    expect(mockEventsGateway.emitToUser).not.toHaveBeenCalled();
+    expect(mockSseService.emitToUser).not.toHaveBeenCalled();
     // The temp file must survive a failed attempt so BullMQ retries can
     // still stream it.
     expect(mockUnlink).not.toHaveBeenCalled();
