@@ -10,11 +10,6 @@
         "include": "email/templates/**/*",
         "outDir": "dist",
         "watchAssets": true
-      },
-      {
-        "include": "../public",
-        "outDir": "./public",
-        "watchAssets": true
       }
     ]
   }

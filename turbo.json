@@ -28,5 +28,6 @@
     "REDIS_PORT",
     "APP_BASE_URL",
     "PORT"
-  ]
+  ],
+  "globalPassThroughEnv": ["VITE_*"]
 }
