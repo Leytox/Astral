@@ -6,9 +6,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider   = "postgresql"
   extensions = [pg_trgm]
 }
+
 enum Role {
   USER
   ADMIN
@@ -33,7 +34,9 @@ model User {
   verificationTokens VerificationToken[]
   sessions           UserSession[]
   playlists          Playlist[]
-  role Role @default(USER)
+  role               Role                @default(USER)
+  followers          Follow[]            @relation("UserFollowers")
+  following          Follow[]            @relation("UserFollowing")
 }
 
 model UserSession {
@@ -142,7 +145,6 @@ model Genre {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
 }
 
 model LikedSong {
@@ -156,6 +158,19 @@ model LikedSong {
   @@unique([userId, songId])
   @@index([userId])
   @@index([songId])
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  follower    User     @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+  followerId  String
+  following   User     @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+  followingId String
+  createdAt   DateTime @default(now())
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
 }
 
 model LikedAlbum {

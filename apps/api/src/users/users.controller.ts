@@ -7,6 +7,7 @@ import {
   Param,
   ParseFilePipeBuilder,
   Patch,
+  Post,
   Put,
   UploadedFile,
   UseGuards,
@@ -14,6 +15,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
@@ -185,10 +187,6 @@ export class UsersController {
     return await this.usersService.editProfile(user.sub, data);
   }
 
-  @ApiUnauthorizedResponse({
-    description: 'Missing or invalid access token',
-    type: ErrorResponseDto,
-  })
   @ApiOperation({
     summary: 'Delete account',
     description: 'Deletes current user account',
@@ -197,11 +195,61 @@ export class UsersController {
     description: 'Profile deleted successfully',
     type: MessageResponseDto,
   })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
   @ApiNotFoundResponse({
     description: 'User not found',
   })
   @Delete()
   async deleteProfile(@User() user: AccessJwtPayload) {
     return await this.usersService.deleteProfile(user.sub);
+  }
+
+  @ApiOperation({
+    summary: 'Follow a user',
+    description: 'Follow a user by id',
+  })
+  @ApiOkResponse({
+    description: 'Followed user successfully',
+    type: MessageResponseDto,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiBadRequestResponse({
+    description: 'You cannot follow yourself',
+  })
+  @ApiNotFoundResponse({
+    description: 'User not found',
+  })
+  @Post(':id/follow')
+  async followUser(@User() user: AccessJwtPayload, @Param('id') id: string) {
+    return await this.usersService.followUser(user.sub, id);
+  }
+
+  @ApiOperation({
+    summary: 'Unfollow a user',
+    description: 'Unfollow a user by id',
+  })
+  @ApiOkResponse({
+    description: 'Unfollowed user successfully',
+    type: MessageResponseDto,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid access token',
+    type: ErrorResponseDto,
+  })
+  @ApiBadRequestResponse({
+    description: 'You cannot unfollow yourself',
+  })
+  @ApiNotFoundResponse({
+    description: 'User not found',
+  })
+  @Delete(':id/follow')
+  async unfollowUser(@User() user: AccessJwtPayload, @Param('id') id: string) {
+    return await this.usersService.unfollowUser(user.sub, id);
   }
 }

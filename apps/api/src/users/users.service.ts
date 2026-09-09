@@ -1,5 +1,6 @@
 import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
+  BadRequestException,
   Inject,
   Injectable,
   NotFoundException,
@@ -204,5 +205,63 @@ export class UsersService {
     await this.cacheManager.del(`profile:detail:${id}`);
 
     return { message: 'Profile deleted successfully' };
+  }
+
+  /**
+   * Follow a user
+   * @param followerId The user id of the follower
+   * @param followingId The user id of the following
+   * @returns {Promise<MessageResponseDto>} returns a message response dto
+   */
+  async followUser(
+    followerId: string,
+    followingId: string,
+  ): Promise<MessageResponseDto> {
+    if (followingId === followerId)
+      throw new BadRequestException('You cannot follow yourself');
+
+    await this.db.follow.upsert({
+      where: {
+        followerId_followingId: {
+          followerId,
+          followingId,
+        },
+      },
+      update: {
+        followerId,
+        followingId,
+      },
+      create: {
+        followerId,
+        followingId,
+      },
+    });
+
+    return { message: 'Followed user successfully' };
+  }
+
+  /**
+   * Unfollow a user
+   * @param followerId The user id of the follower
+   * @param followingId The user id of the following
+   * @returns {Promise<MessageResponseDto>} returns a message response dto
+   */
+  async unfollowUser(
+    followerId: string,
+    followingId: string,
+  ): Promise<MessageResponseDto> {
+    if (followingId === followerId)
+      throw new BadRequestException('You cannot unfollow yourself');
+
+    await this.db.follow.delete({
+      where: {
+        followerId_followingId: {
+          followerId,
+          followingId,
+        },
+      },
+    });
+
+    return { message: 'Unfollowed user successfully' };
   }
 }
