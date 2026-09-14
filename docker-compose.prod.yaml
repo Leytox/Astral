@@ -1,19 +1,14 @@
 services:
   api:
-    restart: on-failure
+    restart: always
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-      target: development
-    command: sh -c "cd apps/api && bunx prisma generate && bun run dev"
+      target: production
     ports:
       - "5000:5000"
     env_file:
       - apps/api/.env.docker
-    volumes:
-      - ./:/app
-      - /app/node_modules
-      - /app/apps/api/node_modules
     depends_on:
       postgres:
         condition: service_healthy
