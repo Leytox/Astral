@@ -3,6 +3,18 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "eslint-plugin-simple-import-sort": "^14.0.0"
   },
+  "optionalDependencies": {
+    "@swc/core-darwin-arm64": "^1.16.2",
+    "@swc/core-darwin-x64": "^1.16.2",
+    "@swc/core-linux-arm-gnueabihf": "^1.16.2",
+    "@swc/core-linux-arm64-gnu": "^1.16.2",
+    "@swc/core-linux-arm64-musl": "^1.16.2",
+    "@swc/core-linux-x64-gnu": "^1.16.2",
+    "@swc/core-linux-x64-musl": "^1.16.2",
+    "@swc/core-win32-arm64-msvc": "^1.16.2",
+    "@swc/core-win32-ia32-msvc": "^1.16.2",
+    "@swc/core-win32-x64-msvc": "^1.16.2"
+  },
   "name": "astral",
   "private": true,
   "type": "module",
@@ -19,13 +31,13 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
-    "@commitlint/config-workspace-scopes": "^21.0.2",
-    "@types/node": "^26.4.1",
+    "@commitlint/config-workspace-scopes": "^21.2.0",
+    "@types/node": "^26.5.1",
     "husky": "^9.1.7",
-    "knip": "^6.34.0",
-    "lint-staged": "^17.4.1",
+    "knip": "^6.35.1",
+    "lint-staged": "^17.5.1",
     "prettier": "^3.9.6",
-    "turbo": "^2.10.12",
+    "turbo": "^2.10.13",
     "typescript": "^7.0.2"
   },
   "engines": {
