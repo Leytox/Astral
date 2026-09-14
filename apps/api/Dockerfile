@@ -37,7 +37,7 @@ RUN bun install --production --frozen-lockfile --backend=copyfile
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/apps/api/public ./apps/api/public
 COPY --from=builder /app/apps/api/src/generated ./apps/api/src/generated
-COPY --from=builder /app/packages/types/dist ./packages/types/dist
+COPY --from=builder /app/packages/types ./packages/types
 
 RUN chown -R bun:bun /app
 
