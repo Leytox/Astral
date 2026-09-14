@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+out
+.next
+.turbo
+coverage
+minio_data
+redis_data
+postgres_data
+apps/api/src/generated
+bun.lock

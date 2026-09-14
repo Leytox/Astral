@@ -1,5 +1,3 @@
-import crypto from 'node:crypto';
-
 import KeyvRedis from '@keyv/redis';
 import { BullModule } from '@nestjs/bullmq';
 import { CacheModule } from '@nestjs/cache-manager';
@@ -11,6 +9,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { LoggerModule } from 'nestjs-pino';
 import { ZodSerializerInterceptor, ZodValidationPipe } from 'nestjs-zod';
+import crypto from 'node:crypto';
 import { join } from 'path';
 
 import { AlbumsModule } from './albums/albums.module';

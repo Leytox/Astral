@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { type Locale, i18n } from "@/utils/i18n-config";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { type Locale, i18n } from '@/utils/i18n-config';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function LocaleSwitcher() {
   const pathname = usePathname();
   const redirectedPathname = (locale: Locale) => {
-    if (!pathname) return "/";
-    const segments = pathname.split("/");
+    if (!pathname) return '/';
+    const segments = pathname.split('/');
     segments[1] = locale;
-    return segments.join("/");
+    return segments.join('/');
   };
 
   return (

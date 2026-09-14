@@ -51,8 +51,8 @@ import { MessageResponseDto } from '../common/dto/message-response.dto';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { EditSongDto } from './dto/edit.dto';
 import { PlayUrlDto } from './dto/play-url.response';
-import { UploadSongDto } from './dto/upload.dto';
 import { UploadSongResponseDto } from './dto/upload-response';
+import { UploadSongDto } from './dto/upload.dto';
 import { SongsService } from './songs.service';
 
 @ApiTags('Songs')

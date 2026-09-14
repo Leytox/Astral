@@ -1,8 +1,8 @@
 // @ts-check
+import { config as baseConfig } from '@repo/eslint-config/base';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import { config as baseConfig } from '@repo/eslint-config/base';
 
 export default tseslint.config(
   ...baseConfig,

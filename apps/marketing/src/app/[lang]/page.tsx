@@ -1,7 +1,7 @@
 // import { getDictionary } from "@/utils/get-dictionary";
-import { Locale } from "@/utils/i18n-config";
+import { Locale } from '@/utils/i18n-config';
 
-import LocaleSwitcher from "./components/locale-switcher";
+import LocaleSwitcher from './components/locale-switcher';
 
 export default async function Home(props: {
   params: Promise<{ lang: Locale }>;

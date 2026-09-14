@@ -1,5 +1,5 @@
-import { Test } from '@nestjs/testing';
 import { MailerService } from '@nestjs-modules/mailer';
+import { Test } from '@nestjs/testing';
 
 import { EmailProcessor } from './email.processor';
 

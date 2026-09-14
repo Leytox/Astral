@@ -5,9 +5,10 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Channel, createChannel, createSession, Session } from 'better-sse';
+import { Channel, Session, createChannel, createSession } from 'better-sse';
 import type { Request, Response } from 'express';
-import { createClient, RedisClientType } from 'redis';
+import { RedisClientType, createClient } from 'redis';
+
 interface SseRedisMessage {
   userId?: string;
   event: string;

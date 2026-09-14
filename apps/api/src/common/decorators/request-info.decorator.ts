@@ -1,7 +1,8 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 import type { RequestInfo } from '@repo/types';
 import type { Request } from 'express';
 import { UAParser } from 'ua-parser-js';
+
 export const GetRequestInfo = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext): RequestInfo => {
     const request = ctx.switchToHttp().getRequest<Request>();

@@ -1,8 +1,8 @@
-import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import onlyWarn from "eslint-plugin-only-warn";
-import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
-import turboPlugin from "eslint-plugin-turbo";
+import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import onlyWarn from 'eslint-plugin-only-warn';
+import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
+import turboPlugin from 'eslint-plugin-turbo';
 
 /**
  * A shared ESLint configuration for the repository.
@@ -15,12 +15,12 @@ export const config = [
   {
     plugins: {
       turbo: turboPlugin,
-      "simple-import-sort": eslintPluginSimpleImportSort,
+      'simple-import-sort': eslintPluginSimpleImportSort,
     },
     rules: {
-      "turbo/no-undeclared-env-vars": "warn",
-      "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error",
+      'turbo/no-undeclared-env-vars': 'warn',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
   {
@@ -29,7 +29,6 @@ export const config = [
     },
   },
   {
-    ignores: ["dist/**"],
+    ignores: ['dist/**'],
   },
 ];
-

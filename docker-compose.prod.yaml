@@ -6,7 +6,7 @@ services:
       dockerfile: apps/api/Dockerfile
       target: production
     ports:
-      - "5000:5000"
+      - '5000:5000'
     env_file:
       - apps/api/.env.docker
     depends_on:
@@ -23,12 +23,12 @@ services:
     image: axllent/mailpit:latest
     restart: always
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - '1025:1025'
+      - '8025:8025'
     environment:
-      MAILPIT_SMTP_AUTH_USER: "leytox"
-      MAILPIT_SMTP_AUTH_PASS: "b5qpqRrRFz887d9XAy"
-      MP_DATABASE: "/data/mailpit.db"
+      MAILPIT_SMTP_AUTH_USER: 'leytox'
+      MAILPIT_SMTP_AUTH_PASS: 'b5qpqRrRFz887d9XAy'
+      MP_DATABASE: '/data/mailpit.db'
       MP_MAX_MESSAGES: 5000
     volumes:
       - mailpit_data:/data
@@ -37,16 +37,16 @@ services:
     image: cgr.dev/chainguard/minio:latest
     restart: always
     ports:
-      - "9000:9000"
-      - "9090:9090"
+      - '9000:9000'
+      - '9090:9090'
     volumes:
       - ./minio_data:/data
     environment:
-      MINIO_ROOT_USER: "minioadmin"
-      MINIO_ROOT_PASSWORD: "minioadmin"
+      MINIO_ROOT_USER: 'minioadmin'
+      MINIO_ROOT_PASSWORD: 'minioadmin'
     command: server /data --console-address ":9090"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -55,15 +55,15 @@ services:
     image: postgres:alpine
     restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
-      POSTGRES_DB: "spotify_clone"
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'spotify_clone'
     volumes:
       - pgdata:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d spotify_clone"]
+      test: ['CMD-SHELL', 'pg_isready -U user -d spotify_clone']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -72,12 +72,12 @@ services:
     image: redis:alpine
     restart: always
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - ./redis_data:/data
     command: redis-server --appendonly yes
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -86,18 +86,18 @@ services:
     image: prom/prometheus:latest
     restart: always
     ports:
-      - "9091:9090"
+      - '9091:9090'
     volumes:
       - ./prometheus:/etc/prometheus
       - prom_data:/prometheus
     command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
+      - '--config.file=/etc/prometheus/prometheus.yml'
 
   grafana:
     image: grafana/grafana:latest
     restart: always
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
@@ -108,8 +108,8 @@ services:
     image: grafana/loki:latest
     restart: always
     ports:
-      - "3100:3100"
-    user: "0:0"
+      - '3100:3100'
+    user: '0:0'
     volumes:
       - ./loki-config.yml:/etc/loki/local-config.yml
       - loki_data:/loki

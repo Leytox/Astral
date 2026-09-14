@@ -1,42 +1,42 @@
-import "@/app/globals.css";
-import { Locale } from "@/utils/i18n-config";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import '@/app/globals.css';
+import { Locale } from '@/utils/i18n-config';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+  variable: '--font-inter',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Listen to the universe of sounds",
-  description: "A media-streaming service",
-  applicationName: "Astral",
-  authors: { name: "Leytox" },
-  keywords: ["music", "streaming", "media", "audio"],
-  creator: "Leytox",
-  publisher: "Leytox",
+  title: 'Listen to the universe of sounds',
+  description: 'A media-streaming service',
+  applicationName: 'Astral',
+  authors: { name: 'Leytox' },
+  keywords: ['music', 'streaming', 'media', 'audio'],
+  creator: 'Leytox',
+  publisher: 'Leytox',
   openGraph: {
-    title: "Listen to the universe of sounds",
-    description: "A media-streaming service",
-    siteName: "Astral",
+    title: 'Listen to the universe of sounds',
+    description: 'A media-streaming service',
+    siteName: 'Astral',
     images: [
       {
-        url: "/og-image.png",
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: "Astral",
+        alt: 'Astral',
       },
     ],
-    locale: "en_US",
-    type: "website",
+    locale: 'en_US',
+    type: 'website',
   },
   twitter: {
-    title: "Listen to the universe of sounds",
-    description: "A media-streaming service",
-    creator: "@leytox",
-    card: "summary_large_image",
-    images: ["/og-image.png"],
+    title: 'Listen to the universe of sounds',
+    description: 'A media-streaming service',
+    creator: '@leytox',
+    card: 'summary_large_image',
+    images: ['/og-image.png'],
   },
 };
 

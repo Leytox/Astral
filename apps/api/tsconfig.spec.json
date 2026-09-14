@@ -15,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "rootDir": "./src",
-    "types": ["node", "Multer", "jest"],
+    "types": ["node", "Multer", "jest"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts"]
 }

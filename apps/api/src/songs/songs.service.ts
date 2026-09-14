@@ -1,5 +1,5 @@
 import { InjectQueue } from '@nestjs/bullmq';
-import { Cache, CACHE_MANAGER } from '@nestjs/cache-manager';
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 import {
   ConflictException,
   HttpException,
@@ -30,6 +30,7 @@ import { PresignService } from '../upload/presign.service';
 import { UploadService } from '../upload/upload.service';
 import { EditSongDto } from './dto/edit.dto';
 import { UploadSongDto } from './dto/upload.dto';
+
 @Injectable()
 export class SongsService {
   constructor(
