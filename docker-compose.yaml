@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: apps/api/Dockerfile
       target: development
-    command: sh -c "cd apps/api && bunx prisma generate && bun run dev"
+    command: sh -c "bunx prisma generate && bun run dev"
     ports:
       - "5000:5000"
     env_file:
