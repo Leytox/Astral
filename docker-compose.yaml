@@ -8,13 +8,16 @@ services:
       - "5000:5000"
     env_file:
       - apps/api/.env.docker
+    volumes:
+      - ./:/app
+      - /app/node_modules
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
       minio:
-        condition: service_healthy
+        condition: service_started
       loki:
         condition: service_started
 
@@ -31,14 +34,9 @@ services:
       MP_MAX_MESSAGES: 5000
     volumes:
       - mailpit_data:/data
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8025"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   minio:
-    image: minio/minio:latest
+    image: cgr.dev/chainguard/minio:latest
     restart: always
     ports:
       - "9000:9000"
@@ -65,7 +63,7 @@ services:
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "spotify_clone"
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user -d spotify_clone"]
       interval: 5s
@@ -123,3 +121,4 @@ volumes:
   mailpit_data:
   prom_data:
   loki_data:
+  pgdata:
