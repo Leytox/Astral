@@ -61,14 +61,16 @@ import { UsersModule } from './users/users.module';
           customProps: (req) => ({
             userId: (req as { user?: { sub?: string } }).user?.sub,
           }),
-          transport: {
-            target: 'pino-loki',
-            options: {
-              batching: true,
-              interval: 5,
-              host: config.get<string>('LOKI_HOST'),
-            },
-          },
+          transport: config.get<string>('LOKI_HOST')
+            ? {
+                target: 'pino-loki',
+                options: {
+                  batching: true,
+                  interval: 5,
+                  host: config.get<string>('LOKI_HOST'),
+                },
+              }
+            : undefined,
         },
       }),
     }),
