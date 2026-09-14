@@ -8,6 +8,9 @@ services:
       - "5000:5000"
     env_file:
       - apps/api/.env.docker
+    volumes:
+      - ./:/app
+      - /app/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -38,7 +41,7 @@ services:
       retries: 5
 
   minio:
-    image: minio/minio:latest
+    image: cgr.dev/chainguard/minio:latest
     restart: always
     ports:
       - "9000:9000"
