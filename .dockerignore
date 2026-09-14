@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+.git
+.idea
+.vscode
+*.log
+.env*
+postgres_data
+redis_data
+minio_data
+coverage
