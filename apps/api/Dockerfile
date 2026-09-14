@@ -3,7 +3,7 @@ FROM oven/bun:canary AS base
 WORKDIR /app
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
+    && apt-get install -y --no-install-recommends ffmpeg procps \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Development stage (with devDependencies, hot reload support)
