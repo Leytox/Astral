@@ -16,7 +16,7 @@ COPY packages/types/package.json packages/types/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
 COPY packages/eslint-config/package.json packages/eslint-config/package.json
 
-RUN bun install --frozen-lockfile --backend=copyfile --ignore-scripts
+RUN bun install --frozen-lockfile --ignore-scripts
 
 COPY . .
 
@@ -48,7 +48,7 @@ COPY packages/types/package.json packages/types/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
 COPY packages/eslint-config/package.json packages/eslint-config/package.json
 
-RUN bun install --production --frozen-lockfile --backend=copyfile --ignore-scripts
+RUN bun install --production --frozen-lockfile --ignore-scripts
 
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/apps/api/public ./apps/api/public
