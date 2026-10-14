@@ -60,7 +60,8 @@ export class PlaylistsService {
   ): Promise<Playlist> {
     const cacheKey = `playlists:detail:${id}`;
     const cachedPlaylist = await this.cacheManager.get<Playlist>(cacheKey);
-    if (cachedPlaylist) return cachedPlaylist;
+    if (cachedPlaylist?.isPublic && cachedPlaylist.userId === userId)
+      return cachedPlaylist;
 
     const playlist = await this.db.playlist.findUnique({
       where: {
@@ -126,7 +127,7 @@ export class PlaylistsService {
     });
     if (!song) throw new NotFoundException('Song not found');
     await this.db.playlist.update({
-      where: { id: playlist.id },
+      where: { id: playlist.id, userId },
       data: {
         songs: { create: { songId } },
       },
@@ -157,7 +158,13 @@ export class PlaylistsService {
       throw new NotFoundException('Track not found in this playlist');
 
     await this.db.playlistSong.delete({
-      where: { id: playlistSong.id },
+      where: {
+        id: playlistSong.id,
+        songId,
+        playlist: {
+          userId,
+        },
+      },
     });
 
     await this.cacheManager.del(`playlists:detail:${playlistId}`);
@@ -185,7 +192,7 @@ export class PlaylistsService {
         'You already have a playlist with the same name',
       );
     await this.db.playlist.update({
-      where: { id },
+      where: { id, userId },
       data: {
         name: updatePlaylistDto.name,
         isPublic: updatePlaylistDto.isPublic,
@@ -207,7 +214,7 @@ export class PlaylistsService {
   ): Promise<MessageResponseDto> {
     const playlist = await this.getPlaylistById(userId, id);
     await this.db.playlist.delete({
-      where: { id: playlist.id },
+      where: { id: playlist.id, userId },
     });
 
     const cacheKey = `playlists:detail:${id}`;
