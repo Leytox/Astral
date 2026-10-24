@@ -1,2 +1,98 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+
+@plugin 'daisyui' {
+  themes: false;
+}
+
+@custom-variant dark (&:where([data-theme='orbit-dark'], [data-theme='orbit-dark'] *));
+
+@plugin 'daisyui/theme' {
+  name: 'orbit-dark';
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #0a1019;
+  --color-base-200: #101925;
+  --color-base-300: #172334;
+  --color-base-content: #ecf2fa;
+  --color-primary: #72bce4;
+  --color-primary-content: #0a1724;
+  --color-secondary: #172334;
+  --color-secondary-content: #ecf2fa;
+  --color-accent: #72bce4;
+  --color-accent-content: #0a1724;
+  --color-neutral: #253143;
+  --color-neutral-content: #ecf2fa;
+  --color-info: #72bce4;
+  --color-info-content: #0a1724;
+  --color-success: #8dd5ae;
+  --color-success-content: #0a1724;
+  --color-warning: #ebc27a;
+  --color-warning-content: #0a1724;
+  --color-error: #f28b82;
+  --color-error-content: #0a1724;
+
+  --orbit-text-muted: #9baabd;
+  --orbit-divider: #253143;
+  --orbit-control-border: #728397;
+  --orbit-primary-hover: #8ac9eb;
+  --orbit-primary-pressed: #59a6d1;
+  --orbit-accent-text: #72bce4;
+  --orbit-focus: #72bce4;
+  --orbit-shadow-dialog: 0 16px 48px rgb(0 0 0 / 32%);
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.625rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.275rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'orbit-light';
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #f1f4f7;
+  --color-base-200: #e7edf2;
+  --color-base-300: #dce5ee;
+  --color-base-content: #172334;
+  --color-primary: #72bce4;
+  --color-primary-content: #0a1724;
+  --color-secondary: #dce5ee;
+  --color-secondary-content: #172334;
+  --color-accent: #236489;
+  --color-accent-content: #ffffff;
+  --color-neutral: #172334;
+  --color-neutral-content: #ecf2fa;
+  --color-info: #236489;
+  --color-info-content: #ffffff;
+  --color-success: #247a4a;
+  --color-success-content: #ffffff;
+  --color-warning: #85580d;
+  --color-warning-content: #ffffff;
+  --color-error: #b42318;
+  --color-error-content: #ffffff;
+
+  --orbit-text-muted: #546479;
+  --orbit-divider: #d0d9e2;
+  --orbit-control-border: #718094;
+  --orbit-primary-hover: #8ac9eb;
+  --orbit-primary-pressed: #59a6d1;
+  --orbit-accent-text: #236489;
+  --orbit-focus: #236489;
+  --orbit-shadow-dialog: 0 16px 48px rgb(10 23 36 / 14%);
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.625rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.275rem;
+  --border: 1px;
+  --depth: 0;
+}
