@@ -1,0 +1,32 @@
+{
+  "name": "Astral",
+  "dockerComposeFile": [
+    "../docker-compose.yaml",
+    "compose.yaml"
+  ],
+  "service": "dev",
+  "workspaceFolder": "/app",
+  "runServices": [
+    "dev",
+    "postgres",
+    "redis",
+    "minio",
+    "mailpit",
+    "loki"
+  ],
+  "forwardPorts": [
+    5000,
+    5173,
+    3000
+  ],
+  "postCreateCommand": "bun install --frozen-lockfile && bun run --cwd packages/types build && bunx --cwd apps/api prisma generate",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "Prisma.prisma"
+      ]
+    }
+  }
+}

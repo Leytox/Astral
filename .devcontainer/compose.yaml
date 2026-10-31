@@ -1,0 +1,20 @@
+services:
+  dev:
+    environment:
+      APP_BASE_URL: http://localhost:5173
+      VITE_API_URL: http://localhost:5000
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    init: true
+    command: sleep infinity
+    volumes:
+      - .:/app
+      - ./apps/api/.env.docker:/app/apps/api/.env:ro
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      - /app/apps/web/node_modules
+      - /app/apps/marketing/node_modules
+      - /app/packages/types/node_modules
+      - /app/packages/eslint-config/node_modules
+      - /app/packages/typescript-config/node_modules
