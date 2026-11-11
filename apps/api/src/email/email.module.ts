@@ -32,9 +32,16 @@ import { EmailService } from './email.service';
           },
         },
       }),
+      imports: undefined,
     }),
     BullModule.registerQueue({
       name: 'email',
+      defaultJobOptions: {
+        attempts: 5,
+        backoff: { type: 'exponential', delay: 3000 },
+        removeOnComplete: true,
+        removeOnFail: 200,
+      },
     }),
   ],
   providers: [EmailService, ConfigService, EmailProcessor],

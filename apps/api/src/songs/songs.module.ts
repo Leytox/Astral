@@ -5,6 +5,7 @@ import { AuthModule } from '../auth/auth.module';
 import { UploadModule } from '../upload/upload.module';
 import { AudioProcessor } from './audio.processor';
 import { AudioService } from './audio.service';
+import { SongProcessingService } from './song-processing.service';
 import { SongsController } from './songs.controller';
 import { SongsService } from './songs.service';
 
@@ -12,12 +13,23 @@ import { SongsService } from './songs.service';
   imports: [
     UploadModule,
     BullModule.registerQueue({
-      name: 'audio',
+      name: 'audio-v2',
+      defaultJobOptions: {
+        attempts: 3,
+        backoff: { type: 'exponential', delay: 2000 },
+        removeOnComplete: true,
+        removeOnFail: 200,
+      },
     }),
     AuthModule,
   ],
   controllers: [SongsController],
-  providers: [SongsService, AudioService, AudioProcessor],
+  providers: [
+    SongsService,
+    AudioService,
+    AudioProcessor,
+    SongProcessingService,
+  ],
   exports: [SongsService],
 })
 export class SongsModule {}

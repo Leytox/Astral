@@ -26,8 +26,17 @@ import { UploadService } from './upload.service';
           signatureVersion: 'v4',
         },
       }),
+      imports: undefined,
     }),
-    BullModule.registerQueue({ name: 'upload' }),
+    BullModule.registerQueue({
+      name: 'upload',
+      defaultJobOptions: {
+        attempts: 3,
+        backoff: { type: 'exponential', delay: 2000 },
+        removeOnComplete: true,
+        removeOnFail: 200,
+      },
+    }),
     EventsModule,
   ],
   providers: [UploadService, PresignService, UploadProcessor],
