@@ -74,7 +74,7 @@ export class EmailService {
       subject: 'Password Reset',
       template: './password-reset',
       context: {
-        token,
+        reset_url: `${this.configService.get('APP_BASE_URL')}/reset-password/${token}`,
         username,
       },
     });

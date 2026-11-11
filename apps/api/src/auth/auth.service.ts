@@ -475,7 +475,8 @@ export class AuthService {
       },
       data: { revokedAt: new Date() },
     });
-    this.cookieService.deleteRefreshTokenCookie(res);
+    if (req.user.jti === sessionId)
+      this.cookieService.deleteRefreshTokenCookie(res);
     return { message: 'Removed session successfully' };
   }
 }

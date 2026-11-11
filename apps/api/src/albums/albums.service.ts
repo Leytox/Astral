@@ -183,7 +183,7 @@ export class AlbumsService {
     if (!album) throw new NotFoundException('Album not found');
     await this.db.album.update({
       where: { id },
-      data: { title, releaseDate },
+      data: { title, releaseDate: new Date(releaseDate as string) },
     });
     await this.cacheManager.del(`albums:detail:${id}`);
     return { message: 'Album updated successfully' };

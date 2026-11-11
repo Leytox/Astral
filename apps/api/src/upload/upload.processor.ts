@@ -42,9 +42,7 @@ export class UploadProcessor extends WorkerHost {
         });
       throw error;
     } finally {
-      if (uploaded) {
-        await unlink(tempPath).catch(() => {});
-      }
+      if (uploaded) await unlink(tempPath).catch(() => {});
     }
   }
 }
